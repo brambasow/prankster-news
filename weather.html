@@ -657,13 +657,25 @@
     }
   }
 
-  function label(code) { return CODES[code] || "Conditions"; }
-  function icon(code) {
+  var moonId = 0;
+  function moon(phase) {
+    var p = (typeof phase === "number" && isFinite(phase)) ? phase : 0;
+    p = ((p % 1) + 1) % 1;
+    var lit = p <= 0.5 ? p / 0.5 : (1 - p) / 0.5;
+    var shift = (p <= 0.5 ? -1 : 1) * lit * 18;
+    var id = "moon" + (moonId++);
+    return '<defs><clipPath id="' + id + '"><circle cx="24" cy="24" r="8"/></clipPath></defs>' +
+      '<circle cx="24" cy="24" r="8" fill="#f4f0e4"/>' +
+      '<g clip-path="url(#' + id + ')"><circle cx="' + (24 + shift) + '" cy="24" r="8" fill="#2c3140"/></g>' +
+      '<circle cx="24" cy="24" r="8" fill="none" stroke="#d5cfbf" stroke-width="1.2"/>';
+  }
+  function icon(code, night, phase) {
     var sun = '<circle cx="24" cy="24" r="7" fill="#f0b429"/><g stroke="#f0b429" stroke-width="2.2" stroke-linecap="round"><line x1="24" y1="5" x2="24" y2="10"/><line x1="24" y1="38" x2="24" y2="43"/><line x1="5" y1="24" x2="10" y2="24"/><line x1="38" y1="24" x2="43" y2="24"/><line x1="10.5" y1="10.5" x2="14" y2="14"/><line x1="34" y1="34" x2="37.5" y2="37.5"/><line x1="10.5" y1="37.5" x2="14" y2="34"/><line x1="34" y1="14" x2="37.5" y2="10.5"/></g>';
+    var light = night ? moon(phase) : sun;
     var cloud = '<ellipse cx="20" cy="30" rx="10" ry="7" fill="#c5c9d1"/><ellipse cx="31" cy="28" rx="9" ry="8" fill="#b7bcc6"/><ellipse cx="26" cy="24" rx="8" ry="7" fill="#d5d8de"/>';
-    var body = sun;
-    if (code === 2) body = '<g transform="translate(0,-4) scale(0.72)">' + sun + '</g>' + cloud;
-    else if (code === 3) body = '<g transform="translate(6,-8) scale(0.62)">' + sun + '</g>' + cloud;
+    var body = light;
+    if (code === 2) body = '<g transform="translate(0,-4) scale(0.72)">' + light + '</g>' + cloud;
+    else if (code === 3) body = '<g transform="translate(6,-8) scale(0.62)">' + light + '</g>' + cloud;
     else if (code === 45 || code === 48) body = cloud + '<g stroke="#8d93a0" stroke-width="2" stroke-linecap="round"><line x1="10" y1="38" x2="30" y2="38"/><line x1="16" y1="43" x2="38" y2="43"/></g>';
     else if ((code >= 71 && code <= 77) || code === 85 || code === 86) body = cloud + '<g fill="#7aa0c4"><circle cx="16" cy="40" r="1.6"/><circle cx="24" cy="43" r="1.6"/><circle cx="32" cy="39" r="1.6"/></g>';
     else if (code >= 95) body = cloud + '<path d="M22 36h6l-4 7h5l-8 9 2-7h-5z" fill="#d7263d"/>';
@@ -710,9 +722,17 @@
     $("wx-rain").textContent = "Rain " + (data.hourly.precipitation_probability[start] || 0) + "%";
     for (var h = start; h < Math.min(start + 12, times.length); h++) {
       var d = new Date(times[h]);
+      var night = data.hourly.is_day ? data.hourly.is_day[h] === 0 : false;
+      var phase = 0;
+      if (daily.moon_phase) {
+        var key = times[h].slice(0, 10);
+        for (var q = 0; q < daily.time.length; q++) {
+          if (daily.time[q] === key) { phase = daily.moon_phase[q]; break; }
+        }
+      }
       var el = document.createElement("div");
       el.className = "wx-hour";
-      el.innerHTML = icon(data.hourly.weather_code[h]) + "<span>" + d.toLocaleTimeString("en-US", { hour: "numeric" }) + "</span><strong>" + round(data.hourly.temperature_2m[h]) + "°</strong><span>Rain " + data.hourly.precipitation_probability[h] + "%</span><span>Humidity " + data.hourly.relative_humidity_2m[h] + "%</span><span>Wind " + round(data.hourly.wind_speed_10m[h]) + " mph</span>";
+      el.innerHTML = icon(data.hourly.weather_code[h], night, phase) + "<span>" + d.toLocaleTimeString("en-US", { hour: "numeric" }) + "</span><strong>" + round(data.hourly.temperature_2m[h]) + "°</strong><span>Rain " + data.hourly.precipitation_probability[h] + "%</span><span>Humidity " + data.hourly.relative_humidity_2m[h] + "%</span><span>Wind " + round(data.hourly.wind_speed_10m[h]) + " mph</span>";
       hours.appendChild(el);
     }
 
@@ -744,8 +764,8 @@
     var url = "https://api.open-meteo.com/v1/forecast?latitude=" + place.latitude +
       "&longitude=" + place.longitude +
       "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m" +
-      "&hourly=temperature_2m,weather_code,precipitation_probability,relative_humidity_2m,wind_speed_10m" +
-      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max" +
+      "&hourly=temperature_2m,weather_code,precipitation_probability,relative_humidity_2m,wind_speed_10m,is_day" +
+      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset,moon_phase" +
       "&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto&forecast_days=5";
     fetch(url).then(function (res) {
       if (!res.ok) throw new Error("forecast");
