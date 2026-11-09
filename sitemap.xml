@@ -51,15 +51,9 @@
   </url>
   <url>
     <loc>https://pranksternews.com/weather.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pranksternews.com/science.html</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pranksternews.com/games.html</loc>

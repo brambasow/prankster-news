@@ -509,7 +509,7 @@
         <a href="../business.html">Business</a>
         <a href="../tech.html">Technology</a>
         <a href="../sports.html">Sports</a>
-        <a href="../science.html">Science</a>
+        <a href="../weather.html">Weather</a>
         <a href="../games.html">Games</a>
     </nav>
   </header>
@@ -586,7 +586,7 @@
         else if (referrer.includes('tech.html')) from = 'tech';
         else if (referrer.includes('world.html')) from = 'world';
         else if (referrer.includes('us.html')) from = 'us';
-        else if (referrer.includes('science.html')) from = 'science';
+        else if (referrer.includes('weather.html') || referrer.includes('science.html')) from = 'weather';
         else if (referrer.includes('archive.html')) from = 'archive';
         else if (referrer.includes('/stories/')) from = 'story';
       }
@@ -600,7 +600,8 @@
           tech: 'Technology', 
           world: 'World', 
           us: 'U.S.', 
-          science: 'Science',
+          science: 'Weather',
+          weather: 'Weather',
           archive: 'Archive',
           story: 'Page',
           page: 'Page'
@@ -611,7 +612,7 @@
         } else if (from === 'story' || from === 'page') {
           backLink.href = 'javascript:history.back()';
         } else {
-          backLink.href = '../' + from + '.html';
+          backLink.href = '../' + (from === 'science' ? 'weather' : from) + '.html';
         }
       }
     }
