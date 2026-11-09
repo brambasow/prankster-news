@@ -637,7 +637,7 @@
   var framed = false;
   var usBounds = L.latLngBounds([24.4, -125.2], [49.5, -66.4]);
   var pin = L.divIcon({ className: "wx-pin", iconSize: [14, 14], iconAnchor: [7, 7] });
-  var map = L.map("wx-map", { scrollWheelZoom: false }).fitBounds(usBounds);
+  var map = L.map("wx-map", { scrollWheelZoom: true }).fitBounds(usBounds);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 12,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
