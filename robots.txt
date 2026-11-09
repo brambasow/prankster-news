@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://pranksternews.com/sitemap.xml
+Sitemap: https://pranksternews.com/sitemap-news.xml
