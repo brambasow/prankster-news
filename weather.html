@@ -567,14 +567,14 @@
       <h2 class="section-title">Weather</h2>
       <p class="wx-note">Preview. Conditions refresh every 10 minutes.</p>
       <form id="wx-form" class="wx-form">
-        <input id="wx-city" type="search" name="city" value="Milwaukee" aria-label="City" placeholder="City" autocomplete="off">
+        <input id="wx-city" type="search" name="city" value="" aria-label="City" placeholder="City" autocomplete="off">
         <button type="submit">Search</button>
         <button type="button" id="wx-locate">Use my location</button>
       </form>
       <p id="wx-status" class="meta" role="status"></p>
       <div id="wx-picks" class="wx-picks"></div>
       <section class="wx-now" aria-live="polite">
-        <p class="wx-place" id="wx-place">Milwaukee</p>
+        <p class="wx-place" id="wx-place"></p>
         <p class="wx-temp" id="wx-temp">—</p>
         <p class="wx-cond" id="wx-cond"></p>
         <ul class="wx-facts">
@@ -805,9 +805,10 @@
     if (name) search(name);
   });
 
-  $("wx-locate").addEventListener("click", function () {
+  function locate() {
     if (!navigator.geolocation) {
-      setStatus("This browser cannot share a location.");
+      setStatus("This browser cannot share a location. Showing Milwaukee.");
+      search("Milwaukee");
       return;
     }
     setStatus("Finding your location…");
@@ -828,9 +829,12 @@
           choose({ name: "Your location", latitude: lat, longitude: lon });
         });
     }, function () {
-      setStatus("Location permission was blocked. Search for a city instead.");
-    }, { timeout: 8000 });
-  });
+      if (!place) search("Milwaukee");
+      setStatus("Location was not shared. Showing Milwaukee. You can search for a city instead.");
+    }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 });
+  }
+
+  $("wx-locate").addEventListener("click", locate);
 
   map.on("click", function (e) {
     var lat = e.latlng.lat;
@@ -851,7 +855,7 @@
       });
   });
 
-  search("Milwaukee");
+  locate();
 })();
 </script>
 
