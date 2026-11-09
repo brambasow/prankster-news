@@ -657,6 +657,7 @@
     }
   }
 
+  function label(code) { return CODES[code] || "Conditions"; }
   var moonId = 0;
   function moon(phase) {
     var p = (typeof phase === "number" && isFinite(phase)) ? phase : 0;
