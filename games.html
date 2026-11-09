@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games – Prankster News</title>
+  <meta name="description" content="Play games on Prankster News.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600;6..72,700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+
+    /* Header */
+    header {
+      background: #111;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+
+    .logo {
+      font-size: 1.975rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #e63946;
+    }
+
+    .header-date {
+      font-size: 1.025rem;
+      font-weight: 500;
+      color: #ddd;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 1.075rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* Main layout */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Featured story */
+    .featured {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+
+    .featured img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .featured-content {
+      padding: 28px;
+    }
+
+    .category {
+      display: inline-block;
+      background: #e63946;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .featured h1 {
+      font-size: 2rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      color: #444;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .featured p {
+      color: #444;
+      font-size: 1.05rem;
+    }
+
+    /* News grid */
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 0 auto 28px auto;
+      display: block;
+      text-align: center;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .card .meta {
+      font-size: 0.85rem;
+    }
+
+    /* Sidebar */
+    .sidebar-box {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 22px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      margin-bottom: 24px;
+    }
+
+    .sidebar-box h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .trending-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .trending-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .trending-number {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #e63946;
+      min-width: 24px;
+    }
+
+    .trending-item h4 {
+      font-size: 0.9rem;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+
+    .trending-item .meta {
+      font-size: 0.8rem;
+    }
+
+    .category-list {
+      list-style: none;
+    }
+
+    .category-list li {
+      margin-bottom: 10px;
+    }
+
+    .category-list a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .category-list a:hover {
+      color: #e63946;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #ddd;
+      text-decoration: none;
+      margin: 0 12px;
+    }
+    footer .social-links,
+    footer .footer-links {
+      display: block;
+      text-align: center;
+    }
+    footer .social-links { margin-top: 14px; }
+    footer a svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      vertical-align: -3px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .featured img {
+        height: 260px;
+      }
+
+      .featured h1 {
+        font-size: 1.6rem;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  
+    /* Keyboard focus styles */
+    a:focus, button:focus, input:focus, .card:focus-within {
+      outline: 3px solid #e63946;
+      outline-offset: 2px;
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid #e63946;
+      outline-offset: 2px;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #e63946;
+      color: white;
+      padding: 8px 16px;
+      z-index: 1000;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+  
+    .game-select { margin-bottom: 16px; }
+    .game-select select, .difficulty select { padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; }
+    #pong-canvas { border: 2px solid #ddd; border-radius: 8px; background: #111; display: block; margin: 16px auto; }
+
+    .instructions-btn {
+      margin-left: 10px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .instructions-btn:hover { background: #e0e0e0; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      max-width: 360px;
+      text-align: left;
+      position: relative;
+    }
+    .modal-content h3 { margin-bottom: 12px; }
+    .modal-content p { margin-bottom: 10px; line-height: 1.5; }
+    .close-modal {
+      position: absolute;
+      top: 10px; right: 14px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #666;
+    }
+  /* phone-fix */
+
+  @media (max-width: 700px) {
+    body { overflow-x: hidden; }
+    .masthead-inner {
+      padding: 6px 16px 4px;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+    .masthead .logo { font-size: 1.7rem; }
+    .header-date {
+      font-size: 0.85rem;
+      white-space: normal;
+      text-align: left;
+    }
+    .site-header nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 2px 16px;
+      padding: 2px 16px;
+      max-width: none;
+    }
+    .site-header nav a { font-size: 0.95rem; padding: 4px 0; }
+    .section-title { font-size: 2rem; margin: 18px auto 16px; }
+    .card img { height: 200px; }
+    .container, .news-grid, main { max-width: 100%; }
+    #pong-canvas { width: 100%; height: auto; }
+    .c4-board { max-width: 100%; }
+    .game-container { padding: 0 12px; }
+  }
+</style>
+  <style>
+    .game-container {
+      max-width: 480px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .game-container h2 {
+      margin-bottom: 8px;
+    }
+    .status {
+      font-size: 1.2rem;
+      margin: 16px 0;
+      min-height: 1.5em;
+      font-weight: 600;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 20px auto;
+      width: 300px;
+    }
+    .cell {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .cell:hover {
+      background: #f8f8f8;
+    }
+    .cell.x { color: #e63946; }
+    .cell.o { color: #1d3557; }
+    .reset-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      background: #e63946;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .difficulty {
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+    .difficulty select {
+      margin-left: 6px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .reset-btn:hover {
+      background: #c1121f;
+    }
+  
+    .game-select { margin-bottom: 16px; }
+    .game-select select, .difficulty select { padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; }
+    #pong-canvas { border: 2px solid #ddd; border-radius: 8px; background: #111; display: block; margin: 16px auto; }
+
+    .instructions-btn {
+      margin-left: 10px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .instructions-btn:hover { background: #e0e0e0; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      max-width: 360px;
+      text-align: left;
+      position: relative;
+    }
+    .modal-content h3 { margin-bottom: 12px; }
+    .modal-content p { margin-bottom: 10px; line-height: 1.5; }
+    .close-modal {
+      position: absolute;
+      top: 10px; right: 14px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .c4-board {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin: 16px auto;
+      width: min(100%, 420px);
+      background: #1d3557;
+      padding: 12px;
+      border-radius: 12px;
+    }
+    .c4-cell {
+      aspect-ratio: 1;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .c4-cell:disabled { cursor: default; }
+    .c4-disc {
+      width: 78%;
+      height: 78%;
+      border-radius: 50%;
+      display: block;
+    }
+    .c4-disc.you { background: #e63946; }
+    .c4-disc.cpu { background: #e6b325; }
+    .c4-disc.win { box-shadow: 0 0 0 3px #fff; }
+    .c4-disc.drop { animation: c4drop 220ms ease-out; }
+    @keyframes c4drop {
+      from { transform: translateY(calc(var(--from, 4) * -110%)); }
+      to { transform: translateY(0); }
+    }
+</style>
+
+  <style>
+    .arcade {
+      max-width: 36rem;
+      margin: 36px auto 12px;
+      text-align: center;
+      font-family: Outfit, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #121212;
+    }
+    .kicker {
+      color: #d7263d;
+      font-size: 0.72rem;
+      font-weight: 650;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .arcade h1 {
+      font-family: Playfair Display, Georgia, serif;
+      font-size: 3.2rem;
+      font-weight: 650;
+      line-height: 1;
+      margin: 0 0 18px;
+    }
+    .field {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: #6e675f;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .field select {
+      min-height: 44px;
+      border: 1px solid #e4ddd2;
+      background: #fffcf7;
+      color: #121212;
+      border-radius: 6px;
+      padding: 0 12px;
+      font: inherit;
+      font-weight: 600;
+    }
+    .game-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .arcade h2 {
+      font-family: Playfair Display, Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 650;
+      margin: 0;
+    }
+    .arcade .instructions-btn {
+      min-height: 44px;
+      margin: 0;
+      padding: 0 12px;
+      background: #fffcf7;
+      border: 1px solid #e4ddd2;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .arcade .status {
+      min-height: 1.5em;
+      margin: 2px 0 14px;
+      font-size: 1rem;
+      font-weight: 650;
+    }
+    .arcade .board {
+      width: min(100%, 20rem);
+      margin: 0 auto 8px;
+      gap: 8px;
+    }
+    .arcade .cell {
+      background: #fffcf7;
+      border: 1px solid #e4ddd2;
+      border-radius: 10px;
+      font-size: 2.4rem;
+    }
+    .arcade .cell.x { color: #d7263d; }
+    .arcade .cell.o { color: #121212; }
+    .hint {
+      max-width: 28rem;
+      margin: 8px auto 0;
+      color: #6e675f;
+      font-size: 0.9rem;
+    }
+    #pong-canvas {
+      width: 100%;
+      max-width: 32rem;
+      height: auto;
+      border: 1px solid #e4ddd2;
+      border-radius: 10px;
+      background: #121212;
+      display: block;
+      margin: 0 auto;
+      touch-action: none;
+    }
+    .c4-board {
+      width: min(100%, 28rem);
+      margin: 0 auto;
+      background: #121212;
+      border-radius: 14px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .c4-cell {
+      aspect-ratio: 1;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(243, 241, 236, 0.92);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .c4-cell:disabled { cursor: default; }
+    .c4-disc { width: 78%; height: 78%; border-radius: 999px; display: block; }
+    .c4-disc.you { background: #d7263d; }
+    .c4-disc.cpu { background: #e6b325; }
+    .c4-disc.win { box-shadow: 0 0 0 2px #fffcf7; }
+    .c4-disc.drop { animation: c4drop 220ms ease-out; }
+    @keyframes c4drop {
+      from { transform: translateY(calc(var(--from, 4) * -110%)); }
+      to { transform: translateY(0); }
+    }
+    .arcade .reset-btn {
+      min-height: 44px;
+      margin-top: 18px;
+      padding: 0 20px;
+      background: #d7263d;
+      color: #fff7f6;
+      border: 0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 650;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    .arcade:has(#crossword-game[style*="block"]) { max-width: 46rem; }
+    .cw-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      justify-content: center;
+      align-items: center;
+    }
+    .cw-kicker {
+      margin: 0 0 6px;
+      color: #6e675f;
+      font-size: 0.92rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+    .cw-banner {
+      max-width: 36rem;
+      margin: 0 auto 12px;
+      padding: 10px 14px;
+      background: #fff6e8;
+      color: #121212;
+      border: 1px solid #e4ddd2;
+      border-radius: 8px;
+      font-weight: 650;
+      line-height: 1.4;
+      min-height: 2.8em;
+    }
+    #crossword-container { margin: 0 auto 4px; text-align: center; overflow-x: auto; }
+    .cw-grid {
+      --cw: 34px;
+      display: inline-grid;
+      gap: 1px;
+      background: #1a1a1a;
+      border: 2px solid #1a1a1a;
+      user-select: none;
+      touch-action: manipulation;
+    }
+    .cw-cell {
+      width: var(--cw);
+      height: var(--cw);
+      background: #fffcf7;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cw-cell.block { background: #1a1a1a; }
+    .cw-cell.lit { background: #d9e8f8; }
+    .cw-cell.on { background: #c4bfb6; }
+    .cw-cell input {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      font-weight: 700;
+      font-size: max(12px, calc(var(--cw) * 0.48));
+      text-transform: uppercase;
+      background: transparent;
+      color: #121212;
+      outline: none;
+      caret-color: transparent;
+    }
+    .cw-cell.good input { color: #1b7f4a; }
+    .cw-cell.bad input { color: #d7263d; }
+    .cw-cell.revealed input { color: #6e675f; }
+    .cw-num {
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      font-size: max(7px, calc(var(--cw) * 0.22));
+      line-height: 1;
+      font-weight: 650;
+      color: #5c564e;
+      pointer-events: none;
+    }
+    .cw-clues {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 22px;
+      margin: 16px auto 0;
+      text-align: left;
+      max-width: 36rem;
+      width: 100%;
+    }
+    .cw-clues h3 {
+      margin: 0 0 6px;
+      font-family: Playfair Display, Georgia, serif;
+      font-size: 1.25rem;
+    }
+    .cw-clue {
+      display: block;
+      width: 100%;
+      margin: 0 0 4px;
+      padding: 8px 8px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: #121212;
+      text-align: left;
+      font: inherit;
+      font-size: 0.95rem;
+      line-height: 1.35;
+      cursor: pointer;
+    }
+    .cw-clue span { font-weight: 750; margin-right: 4px; }
+    .cw-clue.active { background: #ffe08a; }
+    .cw-clue.done { color: #1b7f4a; }
+    .cw-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .cw-actions .reset-btn { margin-top: 0; }
+    .cw-actions .cw-secondary {
+      background: #fffcf7;
+      color: #121212;
+      border: 1px solid #e4ddd2;
+    }
+    @media (max-width: 640px) {
+      .cw-clues { grid-template-columns: 1fr; }
+    }
+  </style>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  .logo, .section-title, .card h3, .featured h1, article h1, main h1, main h2 {
+    font-family: Playfair Display, Georgia, serif;
+    font-weight: 650;
+  }
+  .section-title { letter-spacing: -0.02em; }
+  .card h3 { font-size: 1.45rem; line-height: 1.2; }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { background: #fff; }
+  .site-header { position: sticky; top: 0; z-index: 100; background: #fff; }
+  .masthead { background: #111; }
+  .masthead-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: calc(22px - 0.25in) calc(20px - 0.75in) 6px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .masthead .logo {
+    display: block;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: Playfair Display, Georgia, serif;
+    font-size: calc(4.25rem - 4pt);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .header-date {
+    margin: 0;
+    color: #ffffff;
+    font-family: Playfair Display, Georgia, serif;
+    font-size: calc(2.125rem - 9pt);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .masthead .logo span { color: inherit; }
+  .site-header nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 calc(20px - 0.75in);
+    background: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+  }
+  .site-header nav a {
+    color: #111111;
+    text-decoration: none;
+    padding: calc(12px - 3.5pt) 0;
+    font-family: Playfair Display, Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .site-header nav a.active { box-shadow: inset 0 -2px 0 #111111; font-weight: 650; }
+  .section-title, .card h3, .featured h1, article h1, main h1, main h2, .logo {
+    font-family: Playfair Display, Georgia, serif;
+    font-weight: 650;
+  }
+  .section-title {
+    color: #111111;
+    font-family: Playfair Display, Georgia, serif;
+    font-size: calc(4.25rem - 4pt);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    text-align: center;
+    margin: calc(36px - 0.5in) auto 28px;
+    line-height: 1;
+  }
+  .news-grid { gap: 28px 32px; }
+  .card { background: transparent; border-radius: 0; box-shadow: none; }
+  .card:hover { transform: none; box-shadow: none; }
+  .card img { width: 100%; height: calc(190px + 1in); object-fit: cover; border-radius: 2px; display: block; }
+  .card-content { padding: 12px 0 0; }
+  .category {
+    background: none;
+    color: #d7263d;
+    padding: 0;
+    border-radius: 0;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .card h3 { font-size: 1.45rem; line-height: 1.15; margin: 6px 0 8px; }
+  .meta { color: #777; font-size: 0.92rem; }
+  @media (max-width: 700px) {
+    .masthead .logo { font-size: calc(2.6rem - 2pt); }
+    .section-title { font-size: 2.4rem; }
+    .card img { height: calc(160px + 1in); }
+  }
+</style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="masthead">
+      <div class="masthead-inner">
+      <a class="logo" href="index.html">Prankster News</a>
+      <div class="header-date" id="header-date"></div>
+      </div>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="world.html">World</a>
+        <a href="us.html">U.S.</a>
+        <a href="politics.html">Politics</a>
+        <a href="business.html">Business</a>
+        <a href="tech.html">Technology</a>
+        <a href="sports.html">Sports</a>
+        <a href="science.html">Science</a>
+        <a href="games.html" class="active">Games</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main id="main-content">
+      <div class="arcade">
+        <p class="kicker">Prankster News</p>
+        <h1>Games</h1>
+        <label class="field">Game
+          <select id="gameSelect" aria-label="Game" onchange="switchGame()">
+            <option value="tictactoe">Tic Tac Toe</option>
+            <option value="pong">Pong</option>
+            <option value="connect4" selected>Connect Four</option>
+            <option value="crossword">Crossword</option>
+          </select>
+        </label>
+
+        <section id="tictactoe-game" style="display:none;">
+          <div class="game-head">
+            <h2>Tic Tac Toe</h2>
+            <button type="button" class="instructions-btn" onclick="showInstructions('ttt')">Instructions</button>
+          </div>
+          <label class="field">Difficulty
+            <select id="ttt-difficulty" aria-label="Difficulty" onchange="resetTTT()">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </label>
+          <p class="status" id="ttt-status">Your turn</p>
+          <div class="board" id="board"></div>
+          <button type="button" class="reset-btn" onclick="resetTTT()">New game</button>
+        </section>
+
+        <section id="pong-game" style="display:none;">
+          <div class="game-head">
+            <h2>Pong</h2>
+            <button type="button" class="instructions-btn" onclick="showInstructions('pong')">Instructions</button>
+          </div>
+          <label class="field">Difficulty
+            <select id="pong-difficulty" aria-label="Difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </label>
+          <p class="status" id="pong-status">You 0 – Computer 0</p>
+          <canvas id="pong-canvas" width="500" height="300" aria-label="Pong court"></canvas>
+          <p class="hint">Mouse follows even off the court. Arrow keys or W and S if you prefer the keyboard.</p>
+          <button type="button" class="reset-btn" onclick="resetPong()">New game</button>
+        </section>
+
+        <section id="connect4-game">
+          <div class="game-head">
+            <h2>Connect Four</h2>
+            <button type="button" class="instructions-btn" onclick="showInstructions('c4')">Instructions</button>
+          </div>
+          <label class="field">Difficulty
+            <select id="c4-difficulty" aria-label="Difficulty" onchange="resetC4()">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </label>
+          <p class="status" id="c4-status">Your turn — drop a red disc</p>
+          <div class="c4-board" id="c4-board" role="grid" aria-label="Connect Four board"></div>
+          <button type="button" class="reset-btn" onclick="resetC4()">New game</button>
+        </section>
+
+        <section id="crossword-game" style="display:none;">
+          <div class="game-head">
+            <h2>Crossword</h2>
+            <button type="button" class="instructions-btn" onclick="showInstructions('crossword')">Instructions</button>
+          </div>
+          <div class="cw-controls">
+            <label class="field">Difficulty
+              <select id="crossword-difficulty" aria-label="Difficulty" onchange="setCrosswordDifficulty()">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </label>
+          </div>
+          <p class="cw-banner" id="crossword-banner">Pick a clue to start</p>
+          <div id="crossword-container">
+            <div id="crossword-grid" class="cw-grid" role="grid" aria-label="Crossword grid"></div>
+          </div>
+          <div id="crossword-clues" class="cw-clues"></div>
+          <div class="cw-actions">
+            <button type="button" class="reset-btn" onclick="checkCrossword()">Check</button>
+            <button type="button" class="reset-btn cw-secondary" onmousedown="event.preventDefault()" onclick="revealCrosswordLetter()">Reveal letter</button>
+            <button type="button" class="reset-btn cw-secondary" onclick="revealCrosswordWord()">Reveal word</button>
+            <button type="button" class="reset-btn cw-secondary" onclick="revealCrosswordPuzzle()">Reveal Puzzle</button>
+            <button type="button" class="reset-btn cw-secondary" onclick="clearCrossword()">Clear</button>
+            <button type="button" class="reset-btn" onclick="nextCrossword()">New Puzzle</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="instructions-modal" class="modal" onclick="closeInstructions(event)">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeInstructions()">&times;</span>
+      <h3 id="modal-title"></h3>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="archive.html">Archive</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="about.html#corrections">Corrections</a>
+    </div>
+    <div class="social-links">
+      <a href="https://bsky.app/profile/pranksternews.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>
+      <a href="https://www.linkedin.com/company/prankster-news" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.23 0z"/></svg></a>
+      <a href="https://x.com/PranksterNewsHQ" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.16l-4.71-6.23-5.4 6.23H3.24l7.73-8.84L2.25 2.25h6.31l4.25 5.62 5.43-5.62zm-1.16 17.52h1.83L7.08 4.13H5.12l12 15.64z"/></svg></a>
+    </div>
+    
+    <p style="margin-top: 16px;">© 2026 Prankster <span>News</span>. All rights reserved.</p>
+  </footer>
+
+  <script src="crossword-puzzles.js"></script>
+  <script>
+    // ===== Game Switcher =====
+    function switchGame() {
+      const g = document.getElementById('gameSelect').value;
+      document.getElementById('tictactoe-game').style.display = g === 'tictactoe' ? 'block' : 'none';
+      document.getElementById('pong-game').style.display = g === 'pong' ? 'block' : 'none';
+      document.getElementById('connect4-game').style.display = g === 'connect4' ? 'block' : 'none';
+      document.getElementById('crossword-game').style.display = g === 'crossword' ? 'block' : 'none';
+      if (g !== 'pong') cancelAnimationFrame(pongAnim);
+      if (g === 'pong') resetPong();
+      else if (g === 'connect4') resetC4();
+      else if (g === 'crossword') ensureCrossword();
+      else resetTTT();
+      const next = '?game=' + encodeURIComponent(g);
+      if (location.search !== next || location.hash) {
+        history.replaceState(null, '', next);
+      }
+    }
+
+    function showInstructions(key) {
+      const copy = {
+        ttt: { title: 'Tic Tac Toe', body: [
+          'You are X. The computer is O.',
+          'Click an empty square. Get three in a row to win.',
+          'Easy is random. Medium mixes it up. Hard never loses.'
+        ]},
+        pong: { title: 'Pong', body: [
+          'Move your paddle on the left to hit the ball past the computer.',
+          'Mouse moves the paddle even off the court. Arrow keys or W/S also work.',
+          'Easy is slow. Hard tracks the ball tightly.'
+        ]},
+        c4: { title: 'Connect Four', body: [
+          'You are red. The computer is gold. Click a column to drop a disc.',
+          'Connect four in a row — across, down, or diagonal — to win.',
+          'Easy drops at random. Medium blocks most threats. Hard looks several moves ahead.'
+        ]},
+        crossword: { title: 'Crossword', body: [
+          'Fill in the grid using the Across and Down clues. Every difficulty has five themed puzzles — use New Puzzle to cycle through them.',
+          'Tap a clue or a white square, then type. Arrow keys move. Space or a second tap on the same square switches across and down.',
+          'Easy is a 10×10 with 10 clues. Medium is 12×12 with 12 clues. Hard is a 15×15 with 15 clues.',
+          'Check marks what you have so far. Reveal letter and Reveal word fill the square or the word you are on. Reveal Puzzle fills the whole grid. Clear wipes the grid without changing puzzles.'
+        ]}
+      }[key];
+      document.getElementById('modal-title').textContent = copy.title;
+      document.getElementById('modal-body').innerHTML = copy.body.map(l => '<p>' + l + '</p>').join('');
+      const modal = document.getElementById('instructions-modal');
+      modal.style.display = 'flex';
+    }
+    function closeInstructions(e) {
+      if (e && e.target && e.target.id !== 'instructions-modal' && !e.target.classList.contains('close-modal')) return;
+      document.getElementById('instructions-modal').style.display = 'none';
+    }
+
+    // ===== Tic Tac Toe =====
+    const board = document.getElementById('board');
+    const tttStatus = document.getElementById('ttt-status');
+    const tttDiff = document.getElementById('ttt-difficulty');
+    let cells = Array(9).fill('');
+    let tttOver = false;
+    const player = 'X', computer = 'O';
+
+    function renderTTT() {
+      board.innerHTML = '';
+      cells.forEach((val, i) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell' + (val ? ' ' + val.toLowerCase() : '');
+        cell.textContent = val;
+        cell.onclick = () => tttMove(i);
+        board.appendChild(cell);
+      });
+    }
+    function tttMove(i) {
+      if (tttOver || cells[i]) return;
+      cells[i] = player;
+      renderTTT();
+      if (checkWin(player)) { tttStatus.textContent = 'You win!'; tttOver = true; return; }
+      if (cells.every(c => c)) { tttStatus.textContent = "It's a draw!"; tttOver = true; return; }
+      tttStatus.textContent = "Computer's turn...";
+      setTimeout(tttComputer, 300);
+    }
+    function tttComputer() {
+      if (tttOver) return;
+      const lvl = tttDiff.value;
+      let m = lvl === 'easy' ? randomMove() : lvl === 'medium' ? (Math.random()<0.5?bestMove():randomMove()) : bestMove();
+      if (m !== -1 && !cells[m]) {
+        cells[m] = computer;
+        renderTTT();
+        if (checkWin(computer)) { tttStatus.textContent = 'Computer wins!'; tttOver = true; return; }
+        if (cells.every(c => c)) { tttStatus.textContent = "It's a draw!"; tttOver = true; return; }
+      }
+      tttStatus.textContent = "Your turn";
+    }
+    function randomMove() {
+      const open = cells.map((c,i)=>c?null:i).filter(i=>i!==null);
+      return open.length ? open[Math.floor(Math.random()*open.length)] : -1;
+    }
+    function bestMove() {
+      let best = -Infinity, move = -1;
+      for (let i=0;i<9;i++) if (!cells[i]) {
+        cells[i] = computer;
+        const s = minimax(false);
+        cells[i] = '';
+        if (s > best) { best = s; move = i; }
+      }
+      return move;
+    }
+    function minimax(isMax) {
+      if (checkWin(computer)) return 10;
+      if (checkWin(player)) return -10;
+      if (cells.every(c=>c)) return 0;
+      let best = isMax ? -Infinity : Infinity;
+      for (let i=0;i<9;i++) if (!cells[i]) {
+        cells[i] = isMax ? computer : player;
+        const s = minimax(!isMax);
+        cells[i] = '';
+        best = isMax ? Math.max(best,s) : Math.min(best,s);
+      }
+      return best;
+    }
+    function checkWin(who) {
+      const L = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      return L.some(([a,b,c]) => cells[a]===who && cells[b]===who && cells[c]===who);
+    }
+    function resetTTT() {
+      cells = Array(9).fill('');
+      tttOver = false;
+      tttStatus.textContent = "Your turn";
+      renderTTT();
+    }
+
+    // ===== Pong =====
+    const canvas = document.getElementById('pong-canvas');
+    const ctx = canvas.getContext('2d');
+    const pongStatus = document.getElementById('pong-status');
+    const pongDiff = document.getElementById('pong-difficulty');
+    let pongAnim;
+    let ball, playerPaddle, aiPaddle, pongScore, keys = {};
+    let mouseY = null;
+
+    function resetPong() {
+      cancelAnimationFrame(pongAnim);
+      ball = { x: 250, y: 150, vx: 4, vy: 2.5, r: 7 };
+      playerPaddle = { x: 20, y: 120, w: 10, h: 70, speed: 7 };
+      aiPaddle = { x: 470, y: 120, w: 10, h: 70 };
+      pongScore = { player: 0, ai: 0 };
+      updatePongStatus();
+      pongLoop();
+    }
+    function updatePongStatus() {
+      pongStatus.textContent = 'You ' + pongScore.player + ' – Computer ' + pongScore.ai;
+    }
+    function pongLoop() {
+      // Mouse control — works even outside canvas
+      if (mouseY !== null) {
+        playerPaddle.y = mouseY - playerPaddle.h / 2;
+      } else {
+        if (keys['ArrowUp'] || keys['w']) playerPaddle.y -= playerPaddle.speed;
+        if (keys['ArrowDown'] || keys['s']) playerPaddle.y += playerPaddle.speed;
+      }
+      playerPaddle.y = Math.max(0, Math.min(canvas.height - playerPaddle.h, playerPaddle.y));
+
+      // AI
+      const lvl = pongDiff.value;
+      const aiSpeed = lvl === 'easy' ? 2.5 : lvl === 'medium' ? 4 : 5.8;
+      const aiCenter = aiPaddle.y + aiPaddle.h / 2;
+      if (aiCenter < ball.y - 10) aiPaddle.y += aiSpeed;
+      else if (aiCenter > ball.y + 10) aiPaddle.y -= aiSpeed;
+      aiPaddle.y = Math.max(0, Math.min(canvas.height - aiPaddle.h, aiPaddle.y));
+
+      // Ball movement
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+
+      // Top / bottom bounce — clamp so it never sticks
+      if (ball.y - ball.r <= 0) {
+        ball.y = ball.r + 1;
+        ball.vy = Math.abs(ball.vy);
+      }
+      if (ball.y + ball.r >= canvas.height) {
+        ball.y = canvas.height - ball.r - 1;
+        ball.vy = -Math.abs(ball.vy);
+      }
+      // Keep a minimum vertical speed so it can't crawl along the edge
+      if (Math.abs(ball.vy) < 1.2) ball.vy = ball.vy < 0 ? -1.5 : 1.5;
+
+      // Paddle collisions
+      if (ball.vx < 0 && ball.x - ball.r <= playerPaddle.x + playerPaddle.w &&
+          ball.y > playerPaddle.y && ball.y < playerPaddle.y + playerPaddle.h) {
+        ball.x = playerPaddle.x + playerPaddle.w + ball.r;
+        ball.vx = Math.abs(ball.vx) * 1.04;
+        ball.vy += (ball.y - (playerPaddle.y + playerPaddle.h / 2)) * 0.12;
+      }
+      if (ball.vx > 0 && ball.x + ball.r >= aiPaddle.x &&
+          ball.y > aiPaddle.y && ball.y < aiPaddle.y + aiPaddle.h) {
+        ball.x = aiPaddle.x - ball.r;
+        ball.vx = -Math.abs(ball.vx) * 1.04;
+        ball.vy += (ball.y - (aiPaddle.y + aiPaddle.h / 2)) * 0.1;
+      }
+
+      // Score
+      if (ball.x < -10) { pongScore.ai++; resetBall(1); }
+      if (ball.x > canvas.width + 10) { pongScore.player++; resetBall(-1); }
+
+      // Draw
+      ctx.fillStyle = '#111';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(playerPaddle.x, playerPaddle.y, playerPaddle.w, playerPaddle.h);
+      ctx.fillRect(aiPaddle.x, aiPaddle.y, aiPaddle.w, aiPaddle.h);
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2, 0);
+      ctx.lineTo(canvas.width / 2, canvas.height);
+      ctx.strokeStyle = '#444';
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      pongAnim = requestAnimationFrame(pongLoop);
+    }
+    function resetBall(dir) {
+      ball.x = canvas.width / 2;
+      ball.y = canvas.height / 2;
+      ball.vx = 4.2 * dir;
+      ball.vy = (Math.random() - 0.5) * 5;
+      if (Math.abs(ball.vy) < 1.5) ball.vy = ball.vy < 0 ? -2 : 2;
+      updatePongStatus();
+    }
+
+    // Mouse tracking that works even when cursor is outside the canvas
+    document.addEventListener('mousemove', function(e) {
+      if (document.getElementById('pong-game').style.display === 'none') return;
+      const rect = canvas.getBoundingClientRect();
+      // Map mouse Y relative to canvas even if mouse is left/right of it
+      mouseY = e.clientY - rect.top;
+    });
+
+    window.addEventListener('keydown', e => { keys[e.key] = true; });
+    window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+
+    // ===== Connect Four =====
+    const C4R = 6, C4C = 7;
+    const C4ORDER = [3,2,4,1,5,0,6];
+    const C4DIRS = [[0,1],[1,0],[1,1],[1,-1]];
+    const c4Board = document.getElementById('c4-board');
+    const c4Status = document.getElementById('c4-status');
+    const c4Diff = document.getElementById('c4-difficulty');
+    let c4 = Array(C4R * C4C).fill(0);
+    let c4Over = false, c4Busy = false, c4Last = -1, c4Win = [];
+    let c4Slip = false, c4Slipped = false;
+
+    function c4At(r, c) { return r * C4C + c; }
+    function c4Drop(grid, col) {
+      for (let r = C4R - 1; r >= 0; r--) if (grid[c4At(r, col)] === 0) return c4At(r, col);
+      return -1;
+    }
+    function c4Line(grid, r, c, dr, dc, who) {
+      let n = 0, rr = r + dr, cc = c + dc;
+      while (rr >= 0 && rr < C4R && cc >= 0 && cc < C4C && grid[c4At(rr, cc)] === who) { n++; rr += dr; cc += dc; }
+      return n;
+    }
+    function c4WinsAt(grid, placed, who) {
+      const r = Math.floor(placed / C4C), c = placed % C4C;
+      return C4DIRS.some(([dr, dc]) => 1 + c4Line(grid, r, c, dr, dc, who) + c4Line(grid, r, c, -dr, -dc, who) >= 4);
+    }
+    function c4Winning(grid, who) {
+      for (let i = 0; i < grid.length; i++) {
+        if (grid[i] !== who || !c4WinsAt(grid, i, who)) continue;
+        const r = Math.floor(i / C4C), c = i % C4C;
+        for (const [dr, dc] of C4DIRS) {
+          const cells = [i];
+          for (const sign of [1, -1]) {
+            let rr = r + dr * sign, cc = c + dc * sign;
+            while (rr >= 0 && rr < C4R && cc >= 0 && cc < C4C && grid[c4At(rr, cc)] === who) {
+              cells.push(c4At(rr, cc)); rr += dr * sign; cc += dc * sign;
+            }
+          }
+          if (cells.length >= 4) return cells;
+        }
+      }
+      return [];
+    }
+    function c4Window(w, who) {
+      const opp = who === 1 ? 2 : 1;
+      let mine = 0, theirs = 0, empty = 0;
+      for (const cell of w) { if (cell === who) mine++; else if (cell === opp) theirs++; else empty++; }
+      if (mine === 4) return 100;
+      if (mine === 3 && empty === 1) return 12;
+      if (mine === 2 && empty === 2) return 3;
+      if (theirs === 3 && empty === 1) return -14;
+      if (theirs === 4) return -100;
+      return 0;
+    }
+    function c4Eval(grid, who) {
+      let score = 0;
+      for (let r = 0; r < C4R; r++) if (grid[c4At(r, 3)] === who) score += 3;
+      const add = cells => { score += c4Window(cells, who); };
+      for (let r = 0; r < C4R; r++) for (let c = 0; c < C4C - 3; c++) add([0,1,2,3].map(k => grid[c4At(r, c + k)]));
+      for (let c = 0; c < C4C; c++) for (let r = 0; r < C4R - 3; r++) add([0,1,2,3].map(k => grid[c4At(r + k, c)]));
+      for (let r = 0; r < C4R - 3; r++) for (let c = 0; c < C4C - 3; c++) add([0,1,2,3].map(k => grid[c4At(r + k, c + k)]));
+      for (let r = 3; r < C4R; r++) for (let c = 0; c < C4C - 3; c++) add([0,1,2,3].map(k => grid[c4At(r - k, c + k)]));
+      return score;
+    }
+    function c4Search(grid, depth, alpha, beta, max, who) {
+      const opp = who === 1 ? 2 : 1, turn = max ? who : opp;
+      const moves = C4ORDER.filter(col => grid[col] === 0);
+      if (!moves.length) return 0;
+      if (depth === 0) return c4Eval(grid, who);
+      let best = max ? -1e6 : 1e6;
+      for (const col of moves) {
+        const i = c4Drop(grid, col);
+        grid[i] = turn;
+        const value = c4WinsAt(grid, i, turn) ? (max ? 10000 + depth : -10000 - depth) : c4Search(grid, depth - 1, alpha, beta, !max, who);
+        grid[i] = 0;
+        if (max) { if (value > best) best = value; if (best > alpha) alpha = best; }
+        else { if (value < best) best = value; if (best < beta) beta = best; }
+        if (alpha >= beta) break;
+      }
+      return best;
+    }
+    function c4Immediate(grid, who) {
+      for (const col of C4ORDER) {
+        if (grid[col] !== 0) continue;
+        const i = c4Drop(grid, col);
+        grid[i] = who;
+        const won = c4WinsAt(grid, i, who);
+        grid[i] = 0;
+        if (won) return col;
+      }
+      return null;
+    }
+    function c4Threats(grid, who) {
+      let n = 0;
+      for (const col of C4ORDER) {
+        if (grid[col] !== 0) continue;
+        const i = c4Drop(grid, col);
+        grid[i] = who;
+        if (c4WinsAt(grid, i, who)) n++;
+        grid[i] = 0;
+      }
+      return n;
+    }
+    function c4Choose(grid, level) {
+      const open = C4ORDER.filter(col => grid[col] === 0);
+      if (!open.length) return -1;
+      if (level === 'easy') return open[Math.floor(Math.random() * open.length)];
+      const win = c4Immediate(grid, 2);
+      if (win !== null) return win;
+      const block = c4Immediate(grid, 1);
+      if (level === 'medium') {
+        if (block !== null && Math.random() < 0.75) return block;
+        if (Math.random() < 0.45) return open[Math.floor(Math.random() * open.length)];
+        return open[0];
+      }
+      if (block !== null) return block;
+      if (c4Slip && !c4Slipped) {
+        c4Slipped = true;
+        return open[Math.floor(Math.random() * open.length)];
+      }
+      let bestCol = open[0], best = -Infinity;
+      const copy = grid.slice();
+      for (const col of open) {
+        const i = c4Drop(copy, col);
+        copy[i] = 2;
+        let value = c4WinsAt(copy, i, 2) ? 20000 : c4Search(copy, 7, -Infinity, Infinity, false, 2);
+        value += c4Threats(copy, 2) * 80;
+        value -= c4Threats(copy, 1) * 90;
+        copy[i] = 0;
+        if (value > best) { best = value; bestCol = col; }
+      }
+      return bestCol;
+    }
+    function renderC4() {
+      c4Board.innerHTML = '';
+      for (let r = 0; r < C4R; r++) {
+        for (let col = 0; col < C4C; col++) {
+          const i = c4At(r, col);
+          const disc = c4[i];
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'c4-cell';
+          btn.disabled = c4Over || c4Busy;
+          btn.setAttribute('aria-label', disc === 1 ? 'Your disc' : disc === 2 ? 'Computer disc' : 'Drop in column ' + (col + 1));
+          btn.onclick = () => c4Place(col);
+          if (disc) {
+            const dot = document.createElement('span');
+            dot.className = 'c4-disc ' + (disc === 1 ? 'you' : 'cpu') + (c4Last === i ? ' drop' : '') + (c4Win.includes(i) ? ' win' : '');
+            dot.style.setProperty('--from', r);
+            btn.appendChild(dot);
+          }
+          c4Board.appendChild(btn);
+        }
+      }
+    }
+    function c4Place(col) {
+      if (c4Over || c4Busy || c4[col] !== 0) return;
+      const next = c4.slice();
+      const mine = c4Drop(next, col);
+      if (mine < 0) return;
+      next[mine] = 1;
+      c4 = next;
+      c4Last = mine;
+      if (c4WinsAt(c4, mine, 1)) {
+        c4Win = c4Winning(c4, 1);
+        c4Over = true;
+        c4Status.textContent = 'You win';
+        renderC4();
+        return;
+      }
+      if (c4.every(Boolean)) {
+        c4Over = true;
+        c4Status.textContent = 'Draw';
+        renderC4();
+        return;
+      }
+      c4Busy = true;
+      c4Status.textContent = 'Computer is thinking';
+      renderC4();
+      setTimeout(c4ComputerMove, 280);
+    }
+    function c4ComputerMove() {
+      const cpuCol = c4Choose(c4.slice(), c4Diff.value);
+      if (cpuCol < 0) { c4Busy = false; c4Over = true; c4Status.textContent = 'Draw'; renderC4(); return; }
+      const after = c4.slice();
+      const theirs = c4Drop(after, cpuCol);
+      after[theirs] = 2;
+      c4 = after;
+      c4Last = theirs;
+      c4Busy = false;
+      if (c4WinsAt(c4, theirs, 2)) {
+        c4Win = c4Winning(c4, 2);
+        c4Over = true;
+        c4Status.textContent = 'Computer wins';
+      } else if (c4.every(Boolean)) {
+        c4Over = true;
+        c4Status.textContent = 'Draw';
+      } else {
+        c4Status.textContent = 'Your turn — drop a red disc';
+      }
+      renderC4();
+    }
+    function resetC4() {
+      c4 = Array(C4R * C4C).fill(0);
+      c4Over = false; c4Busy = false; c4Last = -1; c4Win = [];
+      c4Slip = c4Diff.value === 'hard' && Math.random() < 0.0005;
+      c4Slipped = false;
+      if (c4Diff.value === 'hard') {
+        c4Busy = true;
+        c4Status.textContent = 'Computer is thinking';
+        renderC4();
+        setTimeout(c4ComputerMove, 280);
+      } else {
+        c4Status.textContent = 'Your turn — drop a red disc';
+        renderC4();
+      }
+    }
+
+    // Date. Game boot runs after the crossword code so every puzzle is ready.
+    (function() {
+      const el = document.getElementById('header-date');
+      if (el) el.textContent = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    })();
+  
+
+    // ===== Crossword =====
+    const CW_SAVE = "prankster-crossword-v1";
+    let cwPuzzle = null;
+    let cwSlots = [];
+    let cwAcross = [];
+    let cwDown = [];
+    let cwCells = [];
+    let cwDir = "across";
+    let cwWord = null;
+    let cwR = 0;
+    let cwC = 0;
+    let cwLock = false;
+    let cwBooted = false;
+    let cwTypedAt = 0;
+    let cwIndex = 0;
+    let cwChecked = false;
+
+    function cwNote(text) {
+      const banner = document.getElementById("crossword-banner");
+      if (banner && text) banner.textContent = text;
+    }
+
+    function cwPack() {
+      const diff = document.getElementById("crossword-difficulty").value;
+      return (window.CW_PACKS && window.CW_PACKS[diff]) || [];
+    }
+
+    function setCrosswordDifficulty() {
+      cwIndex = 0;
+      loadCrossword();
+    }
+
+    function nextCrossword() {
+      const pack = cwPack();
+      cwIndex = pack.length ? (cwIndex + 1) % pack.length : 0;
+      loadCrossword();
+    }
+
+    function deriveSlots(grid) {
+      const n = grid.length;
+      const slots = [];
+      for (let r = 0; r < n; r++) {
+        let c = 0;
+        while (c < n) {
+          if (grid[r][c] === "#") { c++; continue; }
+          const s = c;
+          while (c < n && grid[r][c] !== "#") c++;
+          if (c - s >= 3) slots.push({ dir: "across", row: r, col: s, len: c - s });
+        }
+      }
+      for (let c = 0; c < n; c++) {
+        let r = 0;
+        while (r < n) {
+          if (grid[r][c] === "#") { r++; continue; }
+          const s = r;
+          while (r < n && grid[r][c] !== "#") r++;
+          if (r - s >= 3) slots.push({ dir: "down", row: s, col: c, len: r - s });
+        }
+      }
+      return slots;
+    }
+
+    function numberSlots(slots) {
+      const keys = [...new Set(slots.map(w => w.row + "," + w.col))];
+      keys.sort((a, b) => {
+        const [ar, ac] = a.split(",").map(Number);
+        const [br, bc] = b.split(",").map(Number);
+        return ar - br || ac - bc;
+      });
+      const starts = {};
+      keys.forEach((k, i) => { starts[k] = i + 1; });
+      slots.forEach(w => { w.num = starts[w.row + "," + w.col]; });
+    }
+
+    function loadCrossword() {
+      const pack = cwPack();
+      const puzzle = pack[cwIndex] || pack[0];
+      if (!puzzle) return;
+      cwIndex = Math.max(0, pack.indexOf(puzzle));
+      cwPuzzle = puzzle;
+      const grid = puzzle.grid.map(row => [...row]);
+      cwSlots = deriveSlots(grid);
+      cwSlots.forEach(w => {
+        const key = (w.dir === "across" ? "A" : "D") + w.row + "," + w.col;
+        w.clue = puzzle.clues[key] || "Clue unavailable";
+        let answer = "";
+        for (let i = 0; i < w.len; i++) {
+          const r = w.row + (w.dir === "down" ? i : 0);
+          const c = w.col + (w.dir === "across" ? i : 0);
+          answer += grid[r][c];
+        }
+        w.answer = answer;
+      });
+      numberSlots(cwSlots);
+      cwAcross = cwSlots.filter(w => w.dir === "across");
+      cwDown = cwSlots.filter(w => w.dir === "down");
+      cwWord = null;
+      cwDir = "across";
+      buildCrossword(grid);
+      const saved = readSave();
+      if (saved && saved.id === puzzle.id && Array.isArray(saved.letters)) applyLetters(saved.letters);
+      cwChecked = false;
+      document.getElementById("crossword-banner").textContent = "Pick a clue, or tap a square and start typing.";
+    }
+
+    function cellPx() {
+      const n = cwPuzzle.grid.length;
+      const box = document.getElementById("crossword-container");
+      const avail = Math.max(220, (box.clientWidth || 320) - 4);
+      const cap = n >= 15 ? 34 : n >= 12 ? 38 : 44;
+      return Math.max(18, Math.min(cap, Math.floor((avail - n) / n)));
+    }
+
+    function buildCrossword(grid) {
+      const n = grid.length;
+      const gridEl = document.getElementById("crossword-grid");
+      gridEl.style.setProperty("--cw", cellPx() + "px");
+      gridEl.style.gridTemplateColumns = "repeat(" + n + ", var(--cw))";
+      gridEl.innerHTML = "";
+      cwCells = [];
+      const starts = {};
+      cwSlots.forEach(w => { starts[w.row + "," + w.col] = w.num; });
+      for (let r = 0; r < n; r++) {
+        cwCells[r] = [];
+        for (let c = 0; c < n; c++) {
+          const cell = document.createElement("div");
+          cell.className = "cw-cell";
+          cell.setAttribute("role", "gridcell");
+          if (grid[r][c] === "#") {
+            cell.classList.add("block");
+            cell.setAttribute("aria-hidden", "true");
+          } else {
+            const inp = document.createElement("input");
+            inp.maxLength = 1;
+            inp.inputMode = "text";
+            inp.autocomplete = "off";
+            inp.autocapitalize = "characters";
+            inp.spellcheck = false;
+            inp.setAttribute("aria-label", "Row " + (r + 1) + ", column " + (c + 1));
+            inp.dataset.r = String(r);
+            inp.dataset.c = String(c);
+            inp.addEventListener("input", cwInput);
+            inp.addEventListener("keydown", cwKey);
+            inp.addEventListener("focus", () => cwFocus(r, c));
+            inp.addEventListener("pointerdown", (e) => {
+              if (document.activeElement !== inp) return;
+              e.preventDefault();
+              const both = wordsAt(r, c);
+              if (!both.across || !both.down) return;
+              cwDir = cwDir === "across" ? "down" : "across";
+              const word = cwDir === "across" ? both.across : both.down;
+              const idx = cwDir === "across" ? c - word.col : r - word.row;
+              cwSelectWord(cwDir, word.num, idx);
+            });
+            cell.appendChild(inp);
+            if (starts[r + "," + c]) {
+              const num = document.createElement("span");
+              num.className = "cw-num";
+              num.textContent = String(starts[r + "," + c]);
+              cell.appendChild(num);
+            }
+          }
+          gridEl.appendChild(cell);
+          cwCells[r][c] = cell;
+        }
+      }
+      renderCwClues();
+      const gridWidth = gridEl.offsetWidth;
+      const cluesEl = document.getElementById("crossword-clues");
+      const targetWidth = Math.max(gridWidth + 80, 320);
+      cluesEl.style.maxWidth = targetWidth + "px";
+      cluesEl.style.width = "100%";
+    }
+
+    function renderCwClues() {
+      const el = document.getElementById("crossword-clues");
+      const col = (title, list, dir) => {
+        const items = list.slice().sort((a, b) => a.num - b.num).map(w =>
+          `<button type="button" class="cw-clue" data-dir="${dir}" data-num="${w.num}" onclick="cwSelectWord('${dir}',${w.num})"><span>${w.num}</span>${w.clue}</button>`
+        ).join("");
+        return `<div><h3>${title}</h3>${items}</div>`;
+      };
+      el.innerHTML = col("Across", cwAcross, "across") + col("Down", cwDown, "down");
+    }
+
+    function wordsAt(r, c) {
+      return {
+        across: cwAcross.find(w => w.row === r && c >= w.col && c < w.col + w.len) || null,
+        down: cwDown.find(w => w.col === c && r >= w.row && r < w.row + w.len) || null
+      };
+    }
+
+    function cwSelectWord(dir, num, focusIndex) {
+      cwDir = dir;
+      cwWord = (dir === "across" ? cwAcross : cwDown).find(w => w.num === num) || null;
+      if (!cwWord) return;
+      highlightCw();
+      const cells = getCwCells(cwWord);
+      const target = typeof focusIndex === "number" ? cells[focusIndex] : (cells.find(i => !i.value) || cells[0]);
+      if (!target) return;
+      cwLock = true;
+      if (document.activeElement !== target) target.focus();
+      cwLock = false;
+      cwR = +target.dataset.r;
+      cwC = +target.dataset.c;
+      markActive();
+      requestAnimationFrame(() => { try { target.select(); } catch (e) {} });
+      document.getElementById("crossword-banner").textContent =
+        (dir === "across" ? "Across" : "Down") + " " + cwWord.num + ". " + cwWord.clue;
+    }
+
+    function cwFocus(r, c) {
+      cwR = r;
+      cwC = c;
+      if (cwLock) { markActive(); return; }
+      const both = wordsAt(r, c);
+      let dir = cwDir;
+      if (dir === "across" && !both.across) dir = "down";
+      else if (dir === "down" && !both.down) dir = "across";
+      if (!both.across && both.down) dir = "down";
+      if (both.across && !both.down) dir = "across";
+      const word = dir === "across" ? both.across : both.down;
+      if (!word) return;
+      const idx = dir === "across" ? c - word.col : r - word.row;
+      cwSelectWord(dir, word.num, idx);
+    }
+
+    function getCwCells(word) {
+      const list = [];
+      for (let i = 0; i < word.len; i++) {
+        const r = word.row + (word.dir === "down" ? i : 0);
+        const c = word.col + (word.dir === "across" ? i : 0);
+        const inp = cwCells[r][c].querySelector("input");
+        if (inp) list.push(inp);
+      }
+      return list;
+    }
+
+    function highlightCw() {
+      document.querySelectorAll("#crossword-grid .cw-cell").forEach(cell => cell.classList.remove("lit", "on"));
+      document.querySelectorAll(".cw-clue").forEach(el => el.classList.remove("active"));
+      if (!cwWord) return;
+      getCwCells(cwWord).forEach(inp => inp.parentElement.classList.add("lit"));
+      const clue = document.querySelector('.cw-clue[data-dir="' + cwWord.dir + '"][data-num="' + cwWord.num + '"]');
+      if (clue) clue.classList.add("active");
+      markActive();
+    }
+
+    function markActive() {
+      document.querySelectorAll("#crossword-grid .cw-cell.on").forEach(c => c.classList.remove("on"));
+      const cell = cwCells[cwR] && cwCells[cwR][cwC];
+      if (cell && !cell.classList.contains("block")) cell.classList.add("on");
+    }
+
+    function wipeCheck() {
+      document.querySelectorAll("#crossword-grid .cw-cell").forEach(c => c.classList.remove("good", "bad"));
+      document.querySelectorAll(".cw-clue.done").forEach(c => c.classList.remove("done"));
+      cwChecked = false;
+    }
+
+    function advanceFrom(inp) {
+      if (!cwWord) return;
+      const cells = getCwCells(cwWord);
+      const i = cells.indexOf(inp);
+      if (i >= 0 && i < cells.length - 1) cells[i + 1].focus();
+    }
+
+    function cwInput(e) {
+      if (Date.now() - cwTypedAt < 50) return;
+      const inp = e.target;
+      const v = String(inp.value || "").toUpperCase().replace(/[^A-Z]/g, "");
+      inp.value = v.slice(-1);
+      inp.parentElement.classList.remove("good", "bad", "revealed");
+      wipeCheck();
+      if (inp.value) advanceFrom(inp);
+      saveProgress();
+      maybeComplete();
+    }
+
+    function cwKey(e) {
+      const inp = e.target;
+      const r = +inp.dataset.r;
+      const c = +inp.dataset.c;
+      if (e.key === "Backspace") {
+        e.preventDefault();
+        wipeCheck();
+        inp.parentElement.classList.remove("good", "bad", "revealed");
+        if (inp.value) {
+          inp.value = "";
+          saveProgress();
+          return;
+        }
+        if (cwWord) {
+          const cells = getCwCells(cwWord);
+          const i = cells.indexOf(inp);
+          if (i > 0) {
+            cells[i - 1].value = "";
+            cells[i - 1].parentElement.classList.remove("good", "bad", "revealed");
+            cells[i - 1].focus();
+          }
+        }
+        saveProgress();
+      } else if (e.key === "ArrowRight") { e.preventDefault(); cwMove(r, c, 0, 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); cwMove(r, c, 0, -1); }
+      else if (e.key === "ArrowDown") { e.preventDefault(); cwMove(r, c, 1, 0); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); cwMove(r, c, -1, 0); }
+      else if (e.key === " ") {
+        e.preventDefault();
+        const both = wordsAt(r, c);
+        if (both.across && both.down) cwDir = cwDir === "across" ? "down" : "across";
+        cwFocus(r, c);
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        cycleClue(e.shiftKey ? -1 : 1);
+      } else if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+        e.preventDefault();
+        cwTypedAt = Date.now();
+        inp.value = e.key.toUpperCase();
+        inp.parentElement.classList.remove("good", "bad", "revealed");
+        wipeCheck();
+        advanceFrom(inp);
+        saveProgress();
+        maybeComplete();
+      }
+    }
+
+    function cwMove(r, c, dr, dc) {
+      const n = cwPuzzle.grid.length;
+      let rr = r + dr;
+      let cc = c + dc;
+      while (rr >= 0 && cc >= 0 && rr < n && cc < n && cwCells[rr][cc].classList.contains("block")) {
+        rr += dr;
+        cc += dc;
+      }
+      if (rr < 0 || cc < 0 || rr >= n || cc >= n) return;
+      const inp = cwCells[rr][cc].querySelector("input");
+      if (inp) inp.focus();
+    }
+
+    function cycleClue(step) {
+      const list = cwSlots.slice().sort((a, b) => a.num - b.num || (a.dir === "across" ? -1 : 1) - (b.dir === "across" ? -1 : 1));
+      if (!list.length) return;
+      let i = cwWord ? list.indexOf(cwWord) : -1;
+      i = (i + step + list.length) % list.length;
+      cwSelectWord(list[i].dir, list[i].num);
+    }
+
+    function checkCrossword() {
+      if (!cwPuzzle) return false;
+      const grid = cwPuzzle.grid;
+      let ok = 0;
+      let tot = 0;
+      for (let r = 0; r < grid.length; r++) {
+        const row = grid[r];
+        for (let c = 0; c < row.length; c++) {
+          if (row[c] === "#") continue;
+          tot++;
+          const cell = cwCells[r][c];
+          const inp = cell.querySelector("input");
+          cell.classList.remove("good", "bad");
+          if (!inp.value) continue;
+          if (inp.value === row[c]) { cell.classList.add("good"); ok++; }
+          else cell.classList.add("bad");
+        }
+      }
+      cwSlots.forEach(w => {
+        const done = getCwCells(w).every((inp, i) => {
+          const r = w.row + (w.dir === "down" ? i : 0);
+          const c = w.col + (w.dir === "across" ? i : 0);
+          return inp.value === cwPuzzle.grid[r][c];
+        });
+        const clue = document.querySelector('.cw-clue[data-dir="' + w.dir + '"][data-num="' + w.num + '"]');
+        if (clue) clue.classList.toggle("done", done);
+      });
+      cwChecked = true;
+      if (ok === tot) cwNote("Complete — nice work.");
+      else cwNote(ok + " of " + tot + " correct. Empty squares are not marked wrong.");
+      return ok === tot;
+    }
+
+    function maybeComplete() {
+      if (!cwPuzzle) return;
+      for (let r = 0; r < cwPuzzle.grid.length; r++) {
+        for (let c = 0; c < cwPuzzle.grid[r].length; c++) {
+          if (cwPuzzle.grid[r][c] === "#") continue;
+          if (!cwCells[r][c].querySelector("input").value) return;
+        }
+      }
+      checkCrossword();
+    }
+
+    function revealCrosswordLetter() {
+      const cell = cwCells[cwR] && cwCells[cwR][cwC];
+      const inp = (cell && cell.querySelector("input")) || document.querySelector("#crossword-grid input:focus");
+      if (!inp || !cwPuzzle) {
+        cwNote("Select a square first.");
+        return;
+      }
+      const r = +inp.dataset.r;
+      const c = +inp.dataset.c;
+      inp.value = cwPuzzle.grid[r][c];
+      inp.parentElement.classList.add("revealed");
+      inp.parentElement.classList.remove("good", "bad");
+      saveProgress();
+      advanceFrom(inp);
+      maybeComplete();
+    }
+
+    function revealCrosswordWord() {
+      if (!cwWord || !cwPuzzle) {
+        cwNote("Select a word first.");
+        return;
+      }
+      getCwCells(cwWord).forEach((inp, i) => {
+        const r = cwWord.row + (cwWord.dir === "down" ? i : 0);
+        const c = cwWord.col + (cwWord.dir === "across" ? i : 0);
+        inp.value = cwPuzzle.grid[r][c];
+        inp.parentElement.classList.add("revealed");
+        inp.parentElement.classList.remove("good", "bad");
+      });
+      saveProgress();
+      maybeComplete();
+    }
+
+    function revealCrosswordPuzzle() {
+      if (!cwPuzzle) return;
+      cwPuzzle.grid.forEach((row, r) => {
+        [...row].forEach((ch, c) => {
+          if (ch === "#") return;
+          const cell = cwCells[r][c];
+          const inp = cell.querySelector("input");
+          inp.value = ch;
+          cell.classList.add("revealed");
+          cell.classList.remove("good", "bad");
+        });
+      });
+      cwSlots.forEach(w => {
+        const clue = document.querySelector('.cw-clue[data-dir="' + w.dir + '"][data-num="' + w.num + '"]');
+        if (clue) clue.classList.add("done");
+      });
+      saveProgress();
+      cwNote("Puzzle revealed.");
+    }
+
+    function clearCrossword() {
+      document.querySelectorAll("#crossword-grid input").forEach(inp => {
+        inp.value = "";
+        inp.parentElement.classList.remove("good", "bad", "revealed");
+      });
+      document.querySelectorAll(".cw-clue").forEach(c => c.classList.remove("done"));
+      cwChecked = false;
+      cwNote("Cleared.");
+      try { localStorage.removeItem(CW_SAVE); } catch (e) {}
+    }
+
+    function saveProgress() {
+      if (!cwPuzzle) return;
+      const letters = [];
+      cwPuzzle.grid.forEach((row, r) => {
+        [...row].forEach((ch, c) => {
+          if (ch === "#") return;
+          letters.push(cwCells[r][c].querySelector("input").value || "");
+        });
+      });
+      try { localStorage.setItem(CW_SAVE, JSON.stringify({ id: cwPuzzle.id, letters })); } catch (e) {}
+    }
+
+    function readSave() {
+      try { return JSON.parse(localStorage.getItem(CW_SAVE) || "null"); } catch (e) { return null; }
+    }
+
+    function applyLetters(letters) {
+      let i = 0;
+      cwPuzzle.grid.forEach((row, r) => {
+        [...row].forEach((ch, c) => {
+          if (ch === "#") return;
+          const v = String(letters[i++] || "").toUpperCase().replace(/[^A-Z]/g, "");
+          if (v) cwCells[r][c].querySelector("input").value = v.slice(0, 1);
+        });
+      });
+    }
+
+    function ensureCrossword() {
+      if (!cwBooted) cwBooted = true;
+      if (!cwPuzzle) loadCrossword();
+    }
+
+    window.addEventListener("resize", () => {
+      if (!cwPuzzle) return;
+      const gridEl = document.getElementById("crossword-grid");
+      if (!gridEl || !gridEl.childElementCount) return;
+      gridEl.style.setProperty("--cw", cellPx() + "px");
+      const gridWidth = gridEl.offsetWidth;
+      const cluesEl = document.getElementById("crossword-clues");
+      if (cluesEl) {
+        const targetWidth = Math.max(gridWidth + 80, 320);
+        cluesEl.style.maxWidth = targetWidth + "px";
+      }
+    });
+
+    (function bootGames() {
+      const params = new URLSearchParams(location.search);
+      const fromHash = (location.hash || '').replace(/^#/, '').toLowerCase();
+      const aliases = { connectfour: 'connect4', 'connect-four': 'connect4', tictactoe: 'tictactoe', 'tic-tac-toe': 'tictactoe' };
+      const want = aliases[(params.get('game') || fromHash).toLowerCase()] || (params.get('game') || fromHash).toLowerCase();
+      const select = document.getElementById('gameSelect');
+      if (want && select.querySelector('option[value="' + want + '"]')) select.value = want;
+      switchGame();
+    })();
+
+</script>
+
+</body>
+</html>
