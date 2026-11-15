@@ -56,6 +56,13 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pranksternews.com/dog-of-the-month.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://pranksternews.com/weather.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>hourly</changefreq>
