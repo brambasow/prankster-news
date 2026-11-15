@@ -39,7 +39,7 @@
   </url>
   <url>
     <loc>https://pranksternews.com/tech.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -72,6 +72,12 @@
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pranksternews.com/stories/tech-meta-italy-fine.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://pranksternews.com/stories/world-trilateral-summit.html</loc>
