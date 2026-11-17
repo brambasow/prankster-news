@@ -2,6 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://pranksternews.com/stories/business-bank-outage.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Prankster News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-17T02:00:00-05:00</news:publication_date>
+      <news:title>Chase Software Glitch Slows Transactions at Major U.S. Banks Before Service Returns to Normal</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://pranksternews.com/stories/tech-huang-campaign.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Prankster News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-17T01:55:00-05:00</news:publication_date>
+      <news:title>Tech Leaders and Trump Back a Push to Reinstate Jensen Huang, but Nvidia's Board Isn't Budging</news:title>
+    </news:news>
+  </url>
+  <url>
     <loc>https://pranksternews.com/stories/leisure-james-bond.html</loc>
     <news:news>
       <news:publication>
@@ -10,28 +32,6 @@
       </news:publication>
       <news:publication_date>2026-11-16T23:57:00-05:00</news:publication_date>
       <news:title>Robert Pattinson Is Named the Seventh James Bond, Taking Over from Daniel Craig</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://pranksternews.com/stories/sports-nfl-week11.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Prankster News</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-11-16T23:30:00-05:00</news:publication_date>
-      <news:title>NFL Week 11 Matchups</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://pranksternews.com/stories/politics-stock-ban.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Prankster News</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-11-16T18:57:00-05:00</news:publication_date>
-      <news:title>Public Office Is Not a Trading Desk: Congress Should Ban Itself from Playing the Market</news:title>
     </news:news>
   </url>
 </urlset>
