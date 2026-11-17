@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://pranksternews.com/stories/leisure-james-bond.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Prankster News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-16T23:57:00-05:00</news:publication_date>
+      <news:title>Robert Pattinson Is Named the Seventh James Bond, Taking Over from Daniel Craig</news:title>
+    </news:news>
+  </url>
+  <url>
     <loc>https://pranksternews.com/stories/sports-nfl-week11.html</loc>
     <news:news>
       <news:publication>
@@ -21,17 +32,6 @@
       </news:publication>
       <news:publication_date>2026-11-16T18:57:00-05:00</news:publication_date>
       <news:title>Public Office Is Not a Trading Desk: Congress Should Ban Itself from Playing the Market</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://pranksternews.com/stories/leisure-dogs.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Prankster News</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-11-14T23:45:00-05:00</news:publication_date>
-      <news:title>Man's Best Friend, Backed by Science: What Research Says About the Health Benefits of Owning a Dog</news:title>
     </news:news>
   </url>
 </urlset>
