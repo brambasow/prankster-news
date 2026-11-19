@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
+    <loc>https://pranksternews.com/stories/us-fiona-hippo-dies.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Prankster News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-19T17:50:00-05:00</news:publication_date>
+      <news:title>Fiona the Hippo, the Cincinnati Zoo Preemie Who Won Over the World, Dies After Swallowing a Hat</news:title>
+    </news:news>
+  </url>
+  <url>
     <loc>https://pranksternews.com/stories/world-iran-gulf-attacks.html</loc>
     <news:news>
       <news:publication>
@@ -21,17 +32,6 @@
       </news:publication>
       <news:publication_date>2026-11-18T19:30:00-05:00</news:publication_date>
       <news:title>After a 13-Year Wait, 'Grand Theft Auto VI' Arrives With Enormous Hype and Near-Perfect Reviews</news:title>
-    </news:news>
-  </url>
-  <url>
-    <loc>https://pranksternews.com/stories/politics-jeffries-speaker.html</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Prankster News</news:name>
-        <news:language>en</news:language>
-      </news:publication>
-      <news:publication_date>2026-11-18T19:30:00-05:00</news:publication_date>
-      <news:title>House Democrats Nominate Hakeem Jeffries for Speaker, Putting Him on Track to Be the First Black Speaker</news:title>
     </news:news>
   </url>
 </urlset>
