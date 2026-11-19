@@ -11,3 +11,7 @@ python3 tools/update_seo.py
 ```
 
 The news sitemap includes stories published in the last 48 hours. The RSS feed lists the 30 newest stories.
+
+## Images
+
+New story images should be about 1280 pixels wide, saved as JPEG, and kept under 250 KB. The hero image on a page can load immediately. Every other image should use `loading="lazy"`.
