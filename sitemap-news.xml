@@ -2,36 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
-    <loc>https://pranksternews.com/stories/politics-alaska-senate-peltola.html</loc>
+    <loc>https://pranksternews.com/stories/world-iran-gulf-attacks.html</loc>
     <news:news>
       <news:publication>
         <news:name>Prankster News</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-18T13:45:00-05:00</news:publication_date>
-      <news:title>Democrat Mary Peltola Unseats Sen. Dan Sullivan in Alaska, Giving Democrats a 56-44 Senate Majority</news:title>
+      <news:publication_date>2026-11-18T19:30:00-05:00</news:publication_date>
+      <news:title>Iran Targets U.S. Air Base in Kuwait and Sites in Bahrain as Tit-for-Tat Strikes Return to the Gulf</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://pranksternews.com/stories/us-measles-surge.html</loc>
+    <loc>https://pranksternews.com/stories/us-gta-vi-release.html</loc>
     <news:news>
       <news:publication>
         <news:name>Prankster News</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-17T21:20:00-05:00</news:publication_date>
-      <news:title>U.S. Loses Measles Elimination Status After 26 Years as Kennedy Vows to Win It Back</news:title>
+      <news:publication_date>2026-11-18T19:30:00-05:00</news:publication_date>
+      <news:title>After a 13-Year Wait, 'Grand Theft Auto VI' Arrives With Enormous Hype and Near-Perfect Reviews</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://pranksternews.com/stories/business-bank-outage.html</loc>
+    <loc>https://pranksternews.com/stories/politics-jeffries-speaker.html</loc>
     <news:news>
       <news:publication>
         <news:name>Prankster News</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-17T02:00:00-05:00</news:publication_date>
-      <news:title>Chase Software Glitch Slows Transactions at Major U.S. Banks Before Service Returns to Normal</news:title>
+      <news:publication_date>2026-11-18T19:30:00-05:00</news:publication_date>
+      <news:title>House Democrats Nominate Hakeem Jeffries for Speaker, Putting Him on Track to Be the First Black Speaker</news:title>
     </news:news>
   </url>
 </urlset>
