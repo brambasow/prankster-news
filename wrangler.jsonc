@@ -2,6 +2,10 @@
   "name": "prankster-news",
   "compatibility_date": "2026-11-08",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    // Unknown paths serve /404.html with HTTP 404.
+    // html_handling stays at the default (auto-trailing-slash) so
+    // /stories/<slug> and .html clean-URL redirects are unchanged.
+    "not_found_handling": "404-page"
   }
 }

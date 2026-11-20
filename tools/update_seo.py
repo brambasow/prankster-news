@@ -14,7 +14,10 @@ listing, and writes:
     sitemap-news.xml   Google News sitemap of stories published in the last 48 hours
     feed.xml           RSS 2.0 of the 30 newest stories
 
-image-choices.html and the science.html redirect stub are not sitemap entries.
+image-choices.html, the science.html redirect stub, and 404.html are not
+sitemap, news-sitemap, or feed entries. 404.html stays noindex and does
+not gain a canonical URL. The four newest stories inside its
+latest-stories markers are rewritten from the same story list as the feed.
 Rerun this after adding a story under stories/.
 """
 
@@ -96,7 +99,21 @@ STATIC_LASTMOD = {
     "author.html": "2026-10-23",
 }
 # Served, but not a public URL of its own: science.html refreshes to weather.
-SITEMAP_SKIP = {"science.html", "image-choices.html"}
+# 404.html is the not-found page (noindex, no canonical) and must not be listed.
+SITEMAP_SKIP = {"science.html", "image-choices.html", "404.html"}
+# Homepage category labels, keyed by the story filename prefix.
+SECTION_LABELS = {
+    "world": "World",
+    "us": "U.S.",
+    "politics": "Politics",
+    "business": "Business",
+    "tech": "Technology",
+    "sports": "Sports",
+    "leisure": "Life & Leisure",
+}
+NOT_FOUND_LATEST = 4
+NOT_FOUND_START = "<!-- latest-stories:start -->"
+NOT_FOUND_END = "<!-- latest-stories:end -->"
 MIME = {
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
@@ -649,6 +666,8 @@ def write_sitemap(stories: list[Story], pages: dict[str, str]) -> None:
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
     for relpath, changefreq, priority, kind in PUBLIC_PAGES:
+        if relpath in SITEMAP_SKIP:
+            continue
         document = pages[relpath]
         if kind == "section":
             lastmod = section_lastmod(document, by_slug)
@@ -754,6 +773,10 @@ def update_documents(stories: list[Story]) -> dict[str, str]:
     html_paths = sorted(ROOT.glob("*.html")) + sorted((ROOT / "stories").glob("*.html"))
     for path in html_paths:
         relpath = path.relative_to(ROOT).as_posix()
+        # Do not rewrite the not-found <head>. A canonical URL would undo
+        # noindex. The latest-stories list is filled in separately.
+        if relpath == "404.html":
+            continue
         document = read_text(path)
         head, tail = split_head(document)
         if relpath.startswith("stories/"):
@@ -770,9 +793,46 @@ def update_documents(stories: list[Story]) -> dict[str, str]:
     return pages
 
 
+def section_label(story: Story) -> str:
+    prefix = story.slug.split("-", 1)[0]
+    label = SECTION_LABELS.get(prefix)
+    if not label:
+        raise SystemExit(f"{story.relpath} has no homepage section label")
+    return label
+
+
+def render_not_found_stories(stories: list[Story]) -> str:
+    """Four newest stories, in the homepage lead order, with its section and time."""
+    items = []
+    for story in stories[:NOT_FOUND_LATEST]:
+        items.append(
+            "        <li>\n"
+            f'          <a href="stories/{story.slug}.html">{html.escape(story.headline, quote=False)}</a>\n'
+            f'          <div class="meta"><span class="category">{html.escape(section_label(story), quote=False)}</span>'
+            f" · {html.escape(story.display_date, quote=False)}</div>\n"
+            "        </li>"
+        )
+    return "\n".join(items)
+
+
+def update_not_found_page(stories: list[Story]) -> None:
+    path = ROOT / "404.html"
+    document = read_text(path)
+    start_at = document.find(NOT_FOUND_START)
+    end_at = document.find(NOT_FOUND_END)
+    if start_at == -1 or end_at == -1 or end_at < start_at:
+        raise SystemExit("404.html is missing latest-stories markers")
+    block = "\n" + render_not_found_stories(stories) + "\n        "
+    updated = document[: start_at + len(NOT_FOUND_START)] + block + document[end_at:]
+    if "rel=\"canonical\"" in updated.split("</head>", 1)[0]:
+        raise SystemExit("404.html gained a canonical URL")
+    write_text(path, updated)
+
+
 def main() -> None:
     stories = load_stories()
     pages = update_documents(stories)
+    update_not_found_page(stories)
     # Section lastmod must see the archive listing after the missing story is added.
     pages["archive.html"] = read_text(ROOT / "archive.html")
     write_sitemap(stories, pages)
