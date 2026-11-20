@@ -14,7 +14,9 @@ listing, and writes:
     sitemap-news.xml   Google News sitemap of stories published in the last 48 hours
     feed.xml           RSS 2.0 of the 30 newest stories
 
-image-choices.html and the science.html redirect stub are not sitemap entries.
+image-choices.html, the science.html redirect stub, and 404.html are not
+sitemap, news-sitemap, or feed entries. 404.html is left unchanged so it
+stays noindex and does not gain a canonical URL.
 Rerun this after adding a story under stories/.
 """
 
@@ -96,7 +98,8 @@ STATIC_LASTMOD = {
     "author.html": "2026-10-23",
 }
 # Served, but not a public URL of its own: science.html refreshes to weather.
-SITEMAP_SKIP = {"science.html", "image-choices.html"}
+# 404.html is the not-found page (noindex, no canonical) and must not be listed.
+SITEMAP_SKIP = {"science.html", "image-choices.html", "404.html"}
 MIME = {
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
@@ -649,6 +652,8 @@ def write_sitemap(stories: list[Story], pages: dict[str, str]) -> None:
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
     for relpath, changefreq, priority, kind in PUBLIC_PAGES:
+        if relpath in SITEMAP_SKIP:
+            continue
         document = pages[relpath]
         if kind == "section":
             lastmod = section_lastmod(document, by_slug)
@@ -754,6 +759,10 @@ def update_documents(stories: list[Story]) -> dict[str, str]:
     html_paths = sorted(ROOT.glob("*.html")) + sorted((ROOT / "stories").glob("*.html"))
     for path in html_paths:
         relpath = path.relative_to(ROOT).as_posix()
+        # Leave the not-found page alone. Rewriting it would add a canonical
+        # URL, and it is not a sitemap or feed entry.
+        if relpath == "404.html":
+            continue
         document = read_text(path)
         head, tail = split_head(document)
         if relpath.startswith("stories/"):
