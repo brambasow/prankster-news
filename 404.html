@@ -248,9 +248,38 @@
     font-size: 0.92rem;
     margin-top: 4px;
   }
+  .story-list .category { text-transform: uppercase; }
+  a.home-button {
+    display: inline-block;
+    margin-top: 2px;
+    padding: 8px 14px;
+    background: #e63946;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  a.home-button:hover { background: #c1121f; }
+  .section-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
   .section-links a {
-    margin-right: 14px;
+    color: #111;
+    text-decoration: none;
+    font-family: Playfair Display, Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 500;
     white-space: nowrap;
+  }
+  .section-links a:hover { color: #e63946; }
+  a.home-button:focus-visible,
+  .section-links a:focus-visible {
+    outline: 2px solid #1d3557;
+    outline-offset: 2px;
   }
 </style>
 </head>
@@ -279,28 +308,30 @@
     <div class="content">
       <h2>We couldn't find that page</h2>
       <p>The story may have moved, or the link may be mistyped.</p>
-      <p><a href="index.html">Back to the homepage</a></p>
+      <p><a class="home-button" href="index.html">Back to the homepage</a></p>
       <h3>Latest stories</h3>
       <ul class="story-list">
+        <!-- latest-stories:start -->
         <li>
           <a href="stories/business-chase-data-leak.html">Hackers Leak Thousands of Chase Customer Emails After Attack on Bank's Outside Vendors</a>
-          <div class="meta">Business · 7:15 PM EST November 19, 2026</div>
+          <div class="meta"><span class="category">Business</span> · 6:55 PM EST November 19, 2026</div>
         </li>
         <li>
           <a href="stories/us-fiona-hippo-dies.html">Fiona the Hippo, the Cincinnati Zoo Preemie Who Won Over the World, Dies After Swallowing a Hat</a>
-          <div class="meta">U.S. · 5:50 PM EST November 19, 2026</div>
+          <div class="meta"><span class="category">U.S.</span> · 5:50 PM EST November 19, 2026</div>
         </li>
         <li>
           <a href="stories/world-iran-gulf-attacks.html">Iran Targets U.S. Air Base in Kuwait and Sites in Bahrain as Tit-for-Tat Strikes Return to the Gulf</a>
-          <div class="meta">World · 7:30 PM EST November 18, 2026</div>
+          <div class="meta"><span class="category">World</span> · 7:30 PM EST November 18, 2026</div>
         </li>
         <li>
           <a href="stories/us-gta-vi-release.html">After a 13-Year Wait, 'Grand Theft Auto VI' Arrives With Enormous Hype and Near-Perfect Reviews</a>
-          <div class="meta">U.S. · 7:30 PM EST November 18, 2026</div>
+          <div class="meta"><span class="category">U.S.</span> · 7:30 PM EST November 18, 2026</div>
         </li>
+        <!-- latest-stories:end -->
       </ul>
       <h3>Sections</h3>
-      <p class="section-links">
+      <div class="section-links">
         <a href="world.html">World</a>
         <a href="us.html">U.S.</a>
         <a href="politics.html">Politics</a>
@@ -310,7 +341,7 @@
         <a href="leisure.html">Life & Leisure</a>
         <a href="weather.html">Weather</a>
         <a href="games.html">Games</a>
-      </p>
+      </div>
     </div>
   </div>
   <footer>
