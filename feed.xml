@@ -179,15 +179,6 @@
       <media:content url="https://pranksternews.com/zelensky-putin.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
-      <title>Ukraine Russia Peace Talks in Abu Dhabi</title>
-      <link>https://pranksternews.com/stories/abu-dhabi-prisoner-swap</link>
-      <guid isPermaLink="true">https://pranksternews.com/stories/abu-dhabi-prisoner-swap</guid>
-      <pubDate>Wed, 11 Nov 2026 12:36:00 -0500</pubDate>
-      <description>Two days of U.S.-mediated talks between Ukraine and Russia in Abu Dhabi ended Wednesday with an agreement in principle on a large prisoner exchange.</description>
-      <enclosure url="https://pranksternews.com/abu-dhabi-talks.jpg" length="57231" type="image/jpeg"/>
-      <media:content url="https://pranksternews.com/abu-dhabi-talks.jpg" medium="image" type="image/jpeg"/>
-    </item>
-    <item>
       <title>House Republicans Come to Hegseth Rescue</title>
       <link>https://pranksternews.com/stories/politics-hegseth-vote</link>
       <guid isPermaLink="true">https://pranksternews.com/stories/politics-hegseth-vote</guid>
@@ -276,6 +267,15 @@
       <description>Walmart, Kroger, and other retailers are swapping paper shelf tags for digital price screens.</description>
       <enclosure url="https://pranksternews.com/esl-tag.jpg" length="138960" type="image/jpeg"/>
       <media:content url="https://pranksternews.com/esl-tag.jpg" medium="image" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>The Russia-Ukraine War in Late 2026: Stalemate, Attrition, and Narrow Paths to De-escalation</title>
+      <link>https://pranksternews.com/stories/world-ukraine-2026</link>
+      <guid isPermaLink="true">https://pranksternews.com/stories/world-ukraine-2026</guid>
+      <pubDate>Wed, 04 Nov 2026 15:01:00 -0500</pubDate>
+      <description>Five years into the war, the front is mostly static while the human and economic costs keep rising.</description>
+      <enclosure url="https://pranksternews.com/ukraine-war-map.jpg" length="132466" type="image/jpeg"/>
+      <media:content url="https://pranksternews.com/ukraine-war-map.jpg" medium="image" type="image/jpeg"/>
     </item>
   </channel>
 </rss>
