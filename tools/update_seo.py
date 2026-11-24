@@ -337,6 +337,8 @@ class Story:
         self.url = clean_url(self.relpath)
         head, _tail = split_head(document)
         self.headline = self._headline(document, head)
+        kicker = re.search(r'<div class="featured-content">\s*<span class="category">(.*?)</span>', document, re.S)
+        self.kicker = strip_tags(kicker.group(1)) if kicker else ""
         description = get_meta(head, "name", "description")
         if not description:
             raise SystemExit(f"{self.relpath} is missing a meta description")
@@ -791,6 +793,8 @@ def update_documents(stories: list[Story]) -> dict[str, str]:
 
 
 def section_label(story: Story) -> str:
+    if story.kicker == "Opinion":
+        return "Opinion"
     prefix = story.slug.split("-", 1)[0]
     label = SECTION_LABELS.get(prefix)
     if not label:
