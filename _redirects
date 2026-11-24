@@ -1,5 +1,8 @@
 # Remove trailing slashes (safe)
 /:path/ /:path 301
-/science.html /weather.html 301
+/weather /opinion 301
+/weather.html /opinion 301
+/science /opinion 301
+/science.html /opinion 301
 /stories/abu-dhabi-prisoner-swap /stories/world-abu-dhabi-talks 301
 /stories/abu-dhabi-prisoner-swap.html /stories/world-abu-dhabi-talks 301

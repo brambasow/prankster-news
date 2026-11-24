@@ -14,7 +14,7 @@ listing, and writes:
     sitemap-news.xml   Google News sitemap of stories published in the last 48 hours
     feed.xml           RSS 2.0 of the 30 newest stories
 
-image-choices.html, the science.html redirect stub, and 404.html are not
+image-choices.html and 404.html are not
 sitemap, news-sitemap, or feed entries. 404.html stays noindex and does
 not gain a canonical URL. The four newest stories inside its
 latest-stories markers are rewritten from the same story list as the feed.
@@ -79,9 +79,9 @@ PUBLIC_PAGES = [
     ("tech.html", "weekly", "0.8", "section"),
     ("sports.html", "weekly", "0.8", "section"),
     ("leisure.html", "weekly", "0.8", "section"),
+    ("opinion.html", "weekly", "0.8", "section"),
     ("archive.html", "daily", "0.8", "section"),
     ("dog-of-the-month.html", "monthly", "0.6", "section"),
-    ("weather.html", "hourly", "0.6", "static"),
     ("games.html", "weekly", "0.8", "static"),
     ("crossword.html", "monthly", "0.5", "static"),
     ("about.html", "yearly", "0.4", "static"),
@@ -90,7 +90,6 @@ PUBLIC_PAGES = [
     ("author.html", "yearly", "0.4", "static"),
 ]
 STATIC_LASTMOD = {
-    "weather.html": "2026-11-09",
     "games.html": "2026-10-23",
     "crossword.html": "2026-10-23",
     "about.html": "2026-10-23",
@@ -98,9 +97,9 @@ STATIC_LASTMOD = {
     "privacy.html": "2026-10-23",
     "author.html": "2026-10-23",
 }
-# Served, but not a public URL of its own: science.html refreshes to weather.
+# science.html and weather.html were removed; _redirects sends both to /opinion.
 # 404.html is the not-found page (noindex, no canonical) and must not be listed.
-SITEMAP_SKIP = {"science.html", "image-choices.html", "404.html"}
+SITEMAP_SKIP = {"image-choices.html", "404.html"}
 # Homepage category labels, keyed by the story filename prefix.
 SECTION_LABELS = {
     "world": "World",
@@ -162,8 +161,6 @@ def split_head(document: str) -> tuple[str, str]:
 
 def clean_url(relpath: str) -> str:
     """Public clean URL for a site-relative HTML path."""
-    if relpath == "science.html":
-        return f"{SITE}/weather"
     if relpath == "index.html":
         return f"{SITE}/"
     if relpath.endswith(".html"):
@@ -734,7 +731,7 @@ def write_feed(stories: list[Story]) -> None:
         "  <channel>",
         f"    <title>{xml_text(SITE_NAME)}</title>",
         f"    <link>{SITE}/</link>",
-        "    <description>Prankster News delivers current breaking news across world, politics, business, technology, sports, and weather.</description>",
+        "    <description>Prankster News delivers current breaking news across world, politics, business, technology, sports, and opinion.</description>",
         "    <language>en</language>",
         f"    <lastBuildDate>{xml_text(build)}</lastBuildDate>",
         f'    <atom:link href="{FEED_PATH}" rel="self" type="application/rss+xml"/>',

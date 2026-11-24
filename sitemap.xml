@@ -49,6 +49,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pranksternews.com/opinion</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://pranksternews.com/archive</loc>
     <lastmod>2026-11-24</lastmod>
     <changefreq>daily</changefreq>
@@ -58,12 +64,6 @@
     <loc>https://pranksternews.com/dog-of-the-month</loc>
     <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pranksternews.com/weather</loc>
-    <lastmod>2026-11-09</lastmod>
-    <changefreq>hourly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
