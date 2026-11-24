@@ -5,8 +5,17 @@
     <link>https://pranksternews.com/</link>
     <description>Prankster News delivers current breaking news across world, politics, business, technology, sports, and weather.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Nov 2026 19:45:00 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 02:37:00 -0500</lastBuildDate>
     <atom:link href="https://pranksternews.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>The Supreme Court Needs Term Limits, and Democrats Finally Have a Real Opening</title>
+      <link>https://pranksternews.com/stories/politics-scotus-term-limits</link>
+      <guid isPermaLink="true">https://pranksternews.com/stories/politics-scotus-term-limits</guid>
+      <pubDate>Tue, 24 Nov 2026 02:37:00 -0500</pubDate>
+      <description>About eight in ten Americans want fixed terms for the justices. Democrats will soon hold at least 258 House seats and 56 Senate seats, enough to pass an 18-year plan in the House and force the issue in the Senate, though the filibuster and a likely veto still stand in the way.</description>
+      <enclosure url="https://pranksternews.com/scotus-term-limits.jpg" length="188573" type="image/jpeg"/>
+      <media:content url="https://pranksternews.com/scotus-term-limits.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Your Pay Compared to the CEO's of Top US Companies</title>
       <link>https://pranksternews.com/stories/business-ceo-pay</link>
@@ -267,15 +276,6 @@
       <description>Walmart, Kroger, and other retailers are swapping paper shelf tags for digital price screens.</description>
       <enclosure url="https://pranksternews.com/esl-tag.jpg" length="138960" type="image/jpeg"/>
       <media:content url="https://pranksternews.com/esl-tag.jpg" medium="image" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>The Russia-Ukraine War in Late 2026: Stalemate, Attrition, and Narrow Paths to De-escalation</title>
-      <link>https://pranksternews.com/stories/world-ukraine-2026</link>
-      <guid isPermaLink="true">https://pranksternews.com/stories/world-ukraine-2026</guid>
-      <pubDate>Wed, 04 Nov 2026 15:01:00 -0500</pubDate>
-      <description>Five years into the war, the front is mostly static while the human and economic costs keep rising.</description>
-      <enclosure url="https://pranksternews.com/ukraine-war-map.jpg" length="132466" type="image/jpeg"/>
-      <media:content url="https://pranksternews.com/ukraine-war-map.jpg" medium="image" type="image/jpeg"/>
     </item>
   </channel>
 </rss>
