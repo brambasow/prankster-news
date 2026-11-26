@@ -37,10 +37,22 @@ SITE = "https://pranksternews.com"
 OG_IMAGE = f"{SITE}/og.jpg"
 OG_ALT = "Prankster News"
 PUBLISHER_LOGO = f"{SITE}/apple-touch-icon.png"
+PUBLISHER_LOGO_WIDTH = 180
+PUBLISHER_LOGO_HEIGHT = 180
 FEED_PATH = f"{SITE}/feed.xml"
 TWITTER_SITE = "@PranksterNewsHQ"
 SITE_NAME = "Prankster News"
 AUTHOR_DEFAULT = "Prankster News Staff"
+SAME_AS = [
+    "https://bsky.app/profile/pranksternews.bsky.social",
+    "https://www.linkedin.com/company/prankster-news",
+    "https://x.com/PranksterNewsHQ",
+]
+FOUNDER_NAME = "Bram Basow"
+FOUNDER_URL = (
+    "https://www.linkedin.com/in/bram-basowfinancialaccountingmanagerial"
+    "accountingbusinessadministrationsustainabilitypassion"
+)
 EST = timezone(timedelta(hours=-5))
 NEWS_WINDOW = timedelta(days=2)
 RSS_LIMIT = 30
@@ -410,6 +422,106 @@ def section_lastmod(document: str, by_slug: dict[str, Story]) -> str | None:
     return max(dates).strftime("%Y-%m-%d")
 
 
+def ld_script(payload: dict) -> str:
+    raw = json.dumps(payload, ensure_ascii=False, indent=2)
+    raw = raw.replace("<", "\\u003c")
+    indented = "\n".join("  " + line for line in raw.split("\n"))
+    return (
+        '  <script type="application/ld+json">\n'
+        f"{indented}\n"
+        "  </script>\n"
+    )
+
+
+def site_json_ld() -> str:
+    """WebSite and NewsMediaOrganization JSON-LD for the homepage.
+
+    Google uses this to confirm the site name in search results and to
+    connect the official social profiles listed in the site footer.
+    """
+    organization_id = f"{SITE}/#organization"
+    person_id = f"{SITE}/#bram-basow"
+    payload = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": f"{SITE}/#website",
+                "name": SITE_NAME,
+                "alternateName": ["PranksterNews", "pranksternews.com"],
+                "url": f"{SITE}/",
+                "publisher": {"@id": organization_id},
+                "inLanguage": "en-US",
+            },
+            {
+                "@type": "NewsMediaOrganization",
+                "@id": organization_id,
+                "name": SITE_NAME,
+                "url": f"{SITE}/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": PUBLISHER_LOGO,
+                    "width": PUBLISHER_LOGO_WIDTH,
+                    "height": PUBLISHER_LOGO_HEIGHT,
+                },
+                "founder": {"@id": person_id},
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Bowling Green",
+                    "addressRegion": "OH",
+                    "addressCountry": "US",
+                },
+                "sameAs": SAME_AS,
+                "publishingPrinciples": f"{SITE}/about",
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "url": f"{SITE}/contact",
+                    "email": "tips@pranksternews.com",
+                    "contactType": "editorial",
+                },
+            },
+            {
+                "@type": "Person",
+                "@id": person_id,
+                "name": FOUNDER_NAME,
+                "url": FOUNDER_URL,
+            },
+        ],
+    }
+    return ld_script(payload)
+
+
+def strip_site_ld(head: str) -> str:
+    """Remove a previously generated homepage WebSite/Organization block."""
+    pattern = re.compile(
+        r"[ \t]*<script\s+type=\"application/ld\+json\">.*?</script>[ \t]*\n?",
+        re.S | re.I,
+    )
+
+    def replace(match: re.Match[str]) -> str:
+        block = match.group(0)
+        if any(
+            token in block
+            for token in (
+                "WebSite",
+                "NewsMediaOrganization",
+                '"#website"',
+                '"#organization"',
+            )
+        ):
+            return ""
+        return block
+
+    return pattern.sub(replace, head)
+
+
+def update_homepage_json_ld(head: str) -> str:
+    head = strip_site_ld(head)
+    if not head.endswith("\n"):
+        head += "\n"
+    return head + site_json_ld()
+
+
 def json_ld(story: Story) -> str:
     payload = {
         "@context": "https://schema.org",
@@ -426,8 +538,8 @@ def json_ld(story: Story) -> str:
             "logo": {
                 "@type": "ImageObject",
                 "url": PUBLISHER_LOGO,
-                "width": 180,
-                "height": 180,
+                "width": PUBLISHER_LOGO_WIDTH,
+                "height": PUBLISHER_LOGO_HEIGHT,
             },
         },
         "mainEntityOfPage": {"@type": "WebPage", "@id": story.url},
@@ -784,6 +896,8 @@ def update_documents(stories: list[Story]) -> dict[str, str]:
             head = ensure_rss_safe(head)
         else:
             head = update_page_head(head, clean_url(relpath), social=True)
+            if relpath == "index.html":
+                head = update_homepage_json_ld(head)
         document = head + tail
         if relpath == "archive.html":
             document = ensure_archive_listing(document, stories)
