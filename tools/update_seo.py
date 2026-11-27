@@ -101,7 +101,6 @@ PUBLIC_PAGES = [
     ("contact.html", "yearly", "0.4", "static"),
     ("privacy.html", "yearly", "0.4", "static"),
     ("terms.html", "yearly", "0.4", "static"),
-    ("author.html", "yearly", "0.4", "static"),
 ]
 STATIC_LASTMOD = {
     "games.html": "2026-11-26",
@@ -109,11 +108,11 @@ STATIC_LASTMOD = {
     "contact.html": "2026-10-23",
     "privacy.html": "2026-11-26",
     "terms.html": "2026-11-26",
-    "author.html": "2026-10-23",
 }
 # science.html and weather.html were removed; _redirects sends both to /opinion.
 # crossword.html, dog-of-the-month.html and image-choices.html were removed;
 # _redirects sends them to /games?game=crossword, /leisure and /.
+# author.html was removed; _redirects sends /author and /author.html to /about#editor.
 # 404.html is the not-found page (noindex, no canonical) and must not be listed.
 SITEMAP_SKIP = {"404.html"}
 # Homepage category labels, keyed by the story filename prefix.
