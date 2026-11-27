@@ -194,6 +194,42 @@ def absolutize(url: str) -> str:
     return f"{SITE}/{url.lstrip('/')}"
 
 
+RASTER_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+
+
+def url_suffix(url: str) -> str:
+    path = html.unescape(url).split("?", 1)[0].split("#", 1)[0]
+    return Path(path).suffix.lower()
+
+
+def is_raster_url(url: str) -> bool:
+    return url_suffix(url) in RASTER_SUFFIXES
+
+
+def social_image_is_fallback(url: str | None) -> bool:
+    """True when a social image cannot be the story's own preview.
+
+    Stories whose hero was an SVG used the site-wide og.jpg, because social
+    crawlers do not accept SVG. A JPEG, PNG, WebP, or GIF hero replaces that
+    fallback. Vector heroes, including the Gaza and Ukraine maps, stay on it.
+    """
+    if not url:
+        return True
+    absolute = absolutize(url)
+    if absolute == OG_IMAGE:
+        return True
+    return not is_raster_url(absolute)
+
+
+def article_hero(document: str) -> str | None:
+    match = re.search(
+        r'<article\b[^>]*>.*?<img\s+[^>]*src="([^"]+)"',
+        document,
+        re.S,
+    )
+    return match.group(1) if match else None
+
+
 def meta_pattern(attr: str, key: str) -> re.Pattern[str]:
     return re.compile(
         rf"<meta\s+{attr}\s*=\s*[\"']{re.escape(key)}[\"']\s+"
@@ -358,12 +394,18 @@ class Story:
         if not description:
             raise SystemExit(f"{self.relpath} is missing a meta description")
         self.description = description
-        image = get_meta(head, "property", "og:image")
-        if not image:
-            img = re.search(r'<article\b[^>]*>.*?<img\s+[^>]*src="([^"]+)"', document, re.S)
-            if not img:
-                raise SystemExit(f"{self.relpath} is missing an image")
-            image = img.group(1)
+        og_image = get_meta(head, "property", "og:image")
+        hero = article_hero(document)
+        # Prefer the article hero once it is a real image file. og.jpg is only
+        # the stand-in used while the hero was an SVG wrapper.
+        if hero and is_raster_url(hero) and social_image_is_fallback(og_image):
+            image = hero
+        elif og_image:
+            image = og_image
+        elif hero:
+            image = hero
+        else:
+            raise SystemExit(f"{self.relpath} is missing an image")
         self.image = absolutize(image)
         byline_html = self._byline_html(document)
         byline_text = strip_tags(byline_html)
@@ -590,11 +632,23 @@ def update_story_head(head: str, story: Story) -> str:
         before=re.compile(r"<meta\s+property\s*=\s*[\"']og:title[\"']", re.I),
     )
     image = get_meta(head, "property", "og:image")
-    if image:
+    if social_image_is_fallback(image):
+        head = ensure_meta(head, "property", "og:image", story.image)
+    elif image:
         head = set_meta(head, "property", "og:image", absolutize(image))
     twitter_image = get_meta(head, "name", "twitter:image")
-    if twitter_image:
+    if twitter_image and social_image_is_fallback(twitter_image) and story.image != OG_IMAGE:
+        head = set_meta(head, "name", "twitter:image", story.image)
+    elif twitter_image:
         head = set_meta(head, "name", "twitter:image", absolutize(twitter_image))
+    elif story.image != OG_IMAGE and social_image_is_fallback(image):
+        head = ensure_meta(
+            head,
+            "name",
+            "twitter:image",
+            story.image,
+            after=re.compile(r"<meta\s+name\s*=\s*[\"']twitter:site[\"']", re.I),
+        )
     head = ensure_meta(head, "property", "og:url", story.url)
     head = ensure_meta(
         head,
