@@ -75,6 +75,8 @@
     .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
     .content { background: white; padding: 32px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
     .content p { margin-bottom: 16px; }
+    .content ul { margin: 0 0 16px 22px; }
+    .content li { margin-bottom: 10px; }
     .content h3 {
       font-family: Playfair Display, Georgia, serif;
       font-size: 1.45rem;
@@ -145,7 +147,7 @@
   .masthead-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: calc(22px - 0.25in) calc(20px - 0.75in) 6px;
+    padding: 0 0 6px;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -240,43 +242,53 @@
     <header class="site-header">
     <div class="masthead">
       <div class="masthead-inner">
-      <a class="logo" href="index.html">Prankster News</a>
+      <a class="logo" href="/">Prankster News</a>
       <div class="header-date" id="header-date"></div>
       </div>
     </div>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="world.html">World</a>
-        <a href="us.html">U.S.</a>
-        <a href="politics.html">Politics</a>
-        <a href="business.html">Business</a>
-        <a href="tech.html">Technology</a>
-        <a href="sports.html">Sports</a>
-        <a href="leisure.html">Life & Leisure</a>
-        <a href="opinion.html">Opinion</a>
-        <a href="games.html">Games</a>
+        <a href="/">Home</a>
+        <a href="/world">World</a>
+        <a href="/us">U.S.</a>
+        <a href="/politics">Politics</a>
+        <a href="/business">Business</a>
+        <a href="/tech">Technology</a>
+        <a href="/sports">Sports</a>
+        <a href="/leisure">Life & Leisure</a>
+        <a href="/opinion">Opinion</a>
+        <a href="/games">Games</a>
     </nav>
   </header>
   <div class="container">
     <div class="content">
       <h2>About Prankster <span>News</span></h2>
-      <p>Prankster <span>News</span> is an independent news site covering relevant news across World, U.S., Politics, Business, Technology, Sports, and Lifestyles.</p>
-      <p>We strive for clear, straightforward reporting and original commentary. Our goal is to empower our readers with useful information and context, to navigate this fast-paced world of today. We believe in the freedoms and rights granted to us by our founding fathers and the Constitution. We believe in our rights to convey information freely and unhindered and believe that freedom of press is a necessary foundation for any true democracy to last.</p>
-      <p>Stories are written by Prankster Staff and Contributors and edited by <a href="https://www.linkedin.com/in/bram-basowfinancialaccountingmanagerialaccountingbusinessadministrationsustainabilitypassion" target="_blank" rel="noopener">Bram Basow</a>. We update the site regularly as we see fit.</p>
-      <p>Thank you greatly for your support and continued reading!!</p>
-      <h3 id="editorial">Editorial Policy</h3>
-      <p>Prankster <span>News</span> aims to publish accurate, clear reporting. Stories are written and reviewed before publication. We correct errors promptly when they are identified.</p>
+      <p>Prankster <span>News</span> is an independent digital news site covering world, U.S., politics, business, technology, sports, and life and leisure, along with a small opinion section and a few daily games.</p>
+      <p>The name is a nod to our founder’s sense of humor. The reporting is not a joke. Our news stories are straight news: what happened, why it matters and where the facts come from.</p>
+      <h3 id="editorial">Editorial Standards</h3>
+      <ul>
+        <li><strong>Two-source verification.</strong> Before a news story is published, its key facts are confirmed with at least two independent news outlets or with official records such as court filings, government releases and league results.</li>
+        <li><strong>Our own words.</strong> Stories are written in our own words. We do not copy other outlets’ articles, and we do not invent quotes. Quotes come from public statements or from the reporting we cite.</li>
+        <li><strong>Sources listed.</strong> Each news story ends with links to the sources we used, so readers can check our work.</li>
+        <li><strong>News and opinion are separate.</strong> Commentary is labeled Opinion and kept in its own section.</li>
+        <li><strong>Images labeled.</strong> AI-generated images are labeled “AI-generated illustration” and are never presented as photographs of real events. Photos, logos and maps from other sources are credited.</li>
+      </ul>
       <h3 id="corrections">Corrections Policy</h3>
-      <p>If you believe a story contains an error, please contact us at <a href="mailto:tips@pranksternews.com">tips@pranksternews.com</a> with the details. We will review and update the story as needed, noting significant corrections.</p>
+      <p>We correct mistakes as quickly as we can. If you believe a story contains an error, email <a href="mailto:tips@pranksternews.com">tips@pranksternews.com</a> with the story link and the details. We will review it and, when a correction is needed, update the story and add a note at the bottom explaining what changed and when.</p>
+      <h3 id="founder">Founder</h3>
+      <p>Prankster <span>News</span> was founded by <a href="https://www.linkedin.com/in/bram-basowfinancialaccountingmanagerialaccountingbusinessadministrationsustainabilitypassion" target="_blank" rel="noopener">Bram Basow</a>, who is based in Bowling Green, Ohio, and edits the site. Stories carry the byline Prankster <span>News</span> Staff.</p>
+      <h3 id="contact">Contact</h3>
+      <p>News tips, questions and correction requests are welcome. Reach us through our <a href="/contact">contact page</a> or at <a href="mailto:tips@pranksternews.com">tips@pranksternews.com</a>.</p>
     </div>
   </div>
   <footer>
     <div class="footer-links">
-      <a href="archive.html">Archive</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="about.html#corrections">Corrections</a>
+      <a href="/archive">Archive</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+      <a href="#privacy-settings" onclick="if (window.googlefc &amp;&amp; typeof window.googlefc.showRevocationMessage === 'function') { window.googlefc.showRevocationMessage(); } return false;">Privacy settings</a>
+      <a href="/about#corrections">Corrections</a>
     </div>
     <div class="social-links">
       <a href="https://bsky.app/profile/pranksternews.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>

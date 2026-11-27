@@ -61,26 +61,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pranksternews.com/dog-of-the-month</loc>
-    <lastmod>2026-11-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pranksternews.com/games</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pranksternews.com/crossword</loc>
-    <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://pranksternews.com/about</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -92,7 +80,13 @@
   </url>
   <url>
     <loc>https://pranksternews.com/privacy</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://pranksternews.com/terms</loc>
+    <lastmod>2026-11-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>

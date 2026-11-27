@@ -661,6 +661,31 @@
     }
     .arcade .cell.x { color: #d7263d; }
     .arcade .cell.o { color: #121212; }
+    .games-intro {
+      max-width: 32rem;
+      margin: 0 auto 20px;
+      color: #4a453f;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .games-about {
+      max-width: 32rem;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid #e4ddd2;
+      text-align: left;
+      color: #4a453f;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .games-about h2 {
+      font-family: Playfair Display, Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 650;
+      text-align: center;
+      margin: 0 0 14px;
+    }
+    .games-about p { margin: 0 0 12px; }
     .hint {
       max-width: 28rem;
       margin: 8px auto 0;
@@ -867,7 +892,7 @@
   .masthead-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: calc(22px - 0.25in) calc(20px - 0.75in) 6px;
+    padding: 0 0 6px;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -964,21 +989,21 @@
   <header class="site-header">
     <div class="masthead">
       <div class="masthead-inner">
-      <a class="logo" href="index.html">Prankster News</a>
+      <a class="logo" href="/">Prankster News</a>
       <div class="header-date" id="header-date"></div>
       </div>
     </div>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="world.html">World</a>
-        <a href="us.html">U.S.</a>
-        <a href="politics.html">Politics</a>
-        <a href="business.html">Business</a>
-        <a href="tech.html">Technology</a>
-        <a href="sports.html">Sports</a>
-        <a href="leisure.html">Life & Leisure</a>
-        <a href="opinion.html">Opinion</a>
-        <a href="games.html" class="active">Games</a>
+        <a href="/">Home</a>
+        <a href="/world">World</a>
+        <a href="/us">U.S.</a>
+        <a href="/politics">Politics</a>
+        <a href="/business">Business</a>
+        <a href="/tech">Technology</a>
+        <a href="/sports">Sports</a>
+        <a href="/leisure">Life & Leisure</a>
+        <a href="/opinion">Opinion</a>
+        <a href="/games" class="active">Games</a>
     </nav>
   </header>
 
@@ -987,6 +1012,7 @@
       <div class="arcade">
         <p class="kicker">Prankster News</p>
         <h1>Games</h1>
+        <p class="games-intro">Take a break from the news with four free games you can play right in your browser: Connect Four, Tic Tac Toe, Pong and our own crossword puzzles. Choose a game below, pick a difficulty and play against the computer. No account or download is needed.</p>
         <label class="field">Game
           <select id="gameSelect" aria-label="Game" onchange="switchGame()">
             <option value="tictactoe">Tic Tac Toe</option>
@@ -1076,6 +1102,15 @@
             <button type="button" class="reset-btn" onclick="nextCrossword()">New Puzzle</button>
           </div>
         </section>
+
+        <section class="games-about" aria-labelledby="games-about-title">
+          <h2 id="games-about-title">About the games</h2>
+          <p><strong>Connect Four.</strong> Drop red discs into the grid and try to line up four in a row across, down or on a diagonal before the computer does. Higher difficulty levels look further ahead and block your threats.</p>
+          <p><strong>Tic Tac Toe.</strong> The classic three-in-a-row game. Easy plays at random, Medium mixes it up, and Hard never loses, so a draw is a win there.</p>
+          <p><strong>Pong.</strong> Move your paddle with the mouse, the arrow keys or W and S, and return the ball past the computer’s paddle. On Hard, the computer tracks the ball much more tightly.</p>
+          <p><strong>Crossword.</strong> Prankster <span>News</span> writes its own mini crosswords, with five puzzles at each level: Easy is a 10×10 grid with 10 clues, Medium is 12×12 with 12 clues, and Hard is 15×15 with 15 clues. Select a clue to start, and use Check, Reveal or New Puzzle whenever you need a hand.</p>
+          <p>Each game has an Instructions button with the full rules.</p>
+        </section>
       </div>
     </main>
   </div>
@@ -1090,11 +1125,13 @@
 
   <footer>
     <div class="footer-links">
-      <a href="archive.html">Archive</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="about.html#corrections">Corrections</a>
+      <a href="/archive">Archive</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+      <a href="#privacy-settings" onclick="if (window.googlefc &amp;&amp; typeof window.googlefc.showRevocationMessage === 'function') { window.googlefc.showRevocationMessage(); } return false;">Privacy settings</a>
+      <a href="/about#corrections">Corrections</a>
     </div>
     <div class="social-links">
       <a href="https://bsky.app/profile/pranksternews.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg></a>
