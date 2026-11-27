@@ -14,8 +14,10 @@ listing, and writes:
     sitemap-news.xml   Google News sitemap of stories published in the last 48 hours
     feed.xml           RSS 2.0 of the 30 newest stories
 
-image-choices.html and 404.html are not
-sitemap, news-sitemap, or feed entries. 404.html stays noindex and does
+404.html is not a
+sitemap, news-sitemap, or feed entry. A story whose <head> carries
+<meta name="robots" content="noindex"> keeps its page but is left out of
+the sitemaps, feed, archive and 404 lists. 404.html stays noindex and does
 not gain a canonical URL. The four newest stories inside its
 latest-stories markers are rewritten from the same story list as the feed.
 Rerun this after adding a story under stories/.
@@ -93,25 +95,26 @@ PUBLIC_PAGES = [
     ("leisure.html", "weekly", "0.8", "section"),
     ("opinion.html", "weekly", "0.8", "section"),
     ("archive.html", "daily", "0.8", "section"),
-    ("dog-of-the-month.html", "monthly", "0.6", "section"),
     ("games.html", "weekly", "0.8", "static"),
-    ("crossword.html", "monthly", "0.5", "static"),
     ("about.html", "yearly", "0.4", "static"),
     ("contact.html", "yearly", "0.4", "static"),
     ("privacy.html", "yearly", "0.4", "static"),
+    ("terms.html", "yearly", "0.4", "static"),
     ("author.html", "yearly", "0.4", "static"),
 ]
 STATIC_LASTMOD = {
-    "games.html": "2026-10-23",
-    "crossword.html": "2026-10-23",
-    "about.html": "2026-10-23",
+    "games.html": "2026-11-26",
+    "about.html": "2026-11-26",
     "contact.html": "2026-10-23",
-    "privacy.html": "2026-10-23",
+    "privacy.html": "2026-11-26",
+    "terms.html": "2026-11-26",
     "author.html": "2026-10-23",
 }
 # science.html and weather.html were removed; _redirects sends both to /opinion.
+# crossword.html, dog-of-the-month.html and image-choices.html were removed;
+# _redirects sends them to /games?game=crossword, /leisure and /.
 # 404.html is the not-found page (noindex, no canonical) and must not be listed.
-SITEMAP_SKIP = {"image-choices.html", "404.html"}
+SITEMAP_SKIP = {"404.html"}
 # Homepage category labels, keyed by the story filename prefix.
 SECTION_LABELS = {
     "world": "World",
@@ -375,8 +378,10 @@ class Story:
             count=1,
             flags=re.I,
         ).strip()
-        author = re.search(r'<a\b[^>]*href="[^"]*author\.html"[^>]*>(.*?)</a>', byline_html, re.S)
+        author = re.search(r'<a\b[^>]*href="[^"]*author(?:\.html)?"[^>]*>(.*?)</a>', byline_html, re.S)
         self.author = strip_tags(author.group(1)) if author else AUTHOR_DEFAULT
+        robots = get_meta(head, "name", "robots") or ""
+        self.noindex = "noindex" in robots.lower()
         if not self.author:
             self.author = AUTHOR_DEFAULT
 
@@ -407,8 +412,13 @@ def load_stories() -> list[Story]:
     return stories
 
 
+# Internal story links are root-absolute clean URLs (/stories/<slug>); older
+# relative stories/<slug>.html links are still recognized.
+STORY_LINK_RE = r"stories/([a-z0-9-]+)(?:\.html)?(?=[\"'?#<\s])"
+
+
 def story_slugs(fragment: str) -> list[str]:
-    return re.findall(r"stories/([a-z0-9-]+)\.html", fragment)
+    return re.findall(STORY_LINK_RE, fragment)
 
 
 def section_lastmod(document: str, by_slug: dict[str, Story]) -> str | None:
@@ -737,13 +747,13 @@ def ensure_archive_listing(document: str, stories: list[Story]) -> str:
     for story in sorted(missing, key=lambda item: item.published, reverse=True):
         block = (
             "        <li>\n"
-            f'          <a href="stories/{story.slug}.html?from=archive">{html.escape(story.headline)}</a>\n'
+            f'          <a href="/stories/{story.slug}">{html.escape(story.headline)}</a>\n'
             f'          <div class="meta">{html.escape(story.display_date)}</div>\n'
             "        </li>"
         )
         insert_at = None
         for item in items:
-            slug_match = re.search(r"stories/([a-z0-9-]+)\.html", item.group(0))
+            slug_match = re.search(STORY_LINK_RE, item.group(0))
             if not slug_match:
                 continue
             other = by_slug.get(slug_match.group(1))
@@ -892,15 +902,13 @@ def update_documents(stories: list[Story]) -> dict[str, str]:
         head, tail = split_head(document)
         if relpath.startswith("stories/"):
             head = update_story_head(head, by_path[relpath])
-        elif relpath == "image-choices.html":
-            head = ensure_rss_safe(head)
         else:
             head = update_page_head(head, clean_url(relpath), social=True)
             if relpath == "index.html":
                 head = update_homepage_json_ld(head)
         document = head + tail
         if relpath == "archive.html":
-            document = ensure_archive_listing(document, stories)
+            document = ensure_archive_listing(document, [s for s in stories if not s.noindex])
         write_text(path, document)
         pages[relpath] = document
     return pages
@@ -922,7 +930,7 @@ def render_not_found_stories(stories: list[Story]) -> str:
     for story in stories[:NOT_FOUND_LATEST]:
         items.append(
             "        <li>\n"
-            f'          <a href="stories/{story.slug}.html">{html.escape(story.headline, quote=False)}</a>\n'
+            f'          <a href="/stories/{story.slug}">{html.escape(story.headline, quote=False)}</a>\n'
             f'          <div class="meta"><span class="category">{html.escape(section_label(story), quote=False)}</span>'
             f" · {html.escape(story.display_date, quote=False)}</div>\n"
             "        </li>"
@@ -945,8 +953,11 @@ def update_not_found_page(stories: list[Story]) -> None:
 
 
 def main() -> None:
-    stories = load_stories()
-    pages = update_documents(stories)
+    all_stories = load_stories()
+    pages = update_documents(all_stories)
+    # noindex stories keep their page but are not listed anywhere.
+    stories = [story for story in all_stories if not story.noindex]
+    hidden = [story.slug for story in all_stories if story.noindex]
     update_not_found_page(stories)
     # Section lastmod must see the archive listing after the missing story is added.
     pages["archive.html"] = read_text(ROOT / "archive.html")
@@ -954,6 +965,8 @@ def main() -> None:
     recent = write_news_sitemap(stories)
     write_feed(stories)
     print(f"stories: {len(stories)}")
+    if hidden:
+        print("noindex (unlisted):", ", ".join(hidden))
     print(f"news sitemap: {len(recent)}")
     for story in recent:
         print(f"  {story.iso} {story.slug}")
