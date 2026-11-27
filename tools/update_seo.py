@@ -44,7 +44,8 @@ PUBLISHER_LOGO_HEIGHT = 180
 FEED_PATH = f"{SITE}/feed.xml"
 TWITTER_SITE = "@PranksterNewsHQ"
 SITE_NAME = "Prankster News"
-AUTHOR_DEFAULT = "Prankster News Staff"
+AUTHOR_DEFAULT = "Bram Basow"
+AUTHOR_PAGE = f"{SITE}/about#editor"
 SAME_AS = [
     "https://bsky.app/profile/pranksternews.bsky.social",
     "https://www.linkedin.com/company/prankster-news",
@@ -104,7 +105,7 @@ PUBLIC_PAGES = [
 ]
 STATIC_LASTMOD = {
     "games.html": "2026-11-26",
-    "about.html": "2026-11-26",
+    "about.html": "2026-11-27",
     "contact.html": "2026-10-23",
     "privacy.html": "2026-11-26",
     "terms.html": "2026-11-26",
@@ -378,7 +379,7 @@ class Story:
             count=1,
             flags=re.I,
         ).strip()
-        author = re.search(r'<a\b[^>]*href="[^"]*author(?:\.html)?"[^>]*>(.*?)</a>', byline_html, re.S)
+        author = re.search(r'<a\b[^>]*href="[^"]+"[^>]*>(.*?)</a>', byline_html, re.S)
         self.author = strip_tags(author.group(1)) if author else AUTHOR_DEFAULT
         robots = get_meta(head, "name", "robots") or ""
         self.noindex = "noindex" in robots.lower()
@@ -541,7 +542,7 @@ def json_ld(story: Story) -> str:
         "image": story.image,
         "datePublished": story.iso,
         "dateModified": story.iso,
-        "author": {"@type": "Organization", "name": story.author},
+        "author": {"@type": "Person", "name": story.author, "url": AUTHOR_PAGE},
         "publisher": {
             "@type": "Organization",
             "name": SITE_NAME,
