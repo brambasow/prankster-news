@@ -5,8 +5,17 @@
     <link>https://pranksternews.com/</link>
     <description>Prankster News delivers current breaking news across world, politics, business, technology, sports, and opinion.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 24 Nov 2026 02:37:00 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 00:15:00 -0500</lastBuildDate>
     <atom:link href="https://pranksternews.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>NFL Week 12 Matchups</title>
+      <link>https://pranksternews.com/stories/sports-nfl-thanksgiving-week12</link>
+      <guid isPermaLink="true">https://pranksternews.com/stories/sports-nfl-thanksgiving-week12</guid>
+      <pubDate>Fri, 27 Nov 2026 00:15:00 -0500</pubDate>
+      <description>The Bears, Eagles and Bills each won late on Thursday. Black Friday starts a weekend that includes a 49ers-Seahawks showdown and a Monday night race in the NFC South.</description>
+      <enclosure url="https://pranksternews.com/og.jpg" length="45443" type="image/jpeg"/>
+      <media:content url="https://pranksternews.com/og.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>The Supreme Court Needs Term Limits, and Democrats Finally Have a Real Opening</title>
       <link>https://pranksternews.com/stories/politics-scotus-term-limits</link>
@@ -267,15 +276,6 @@
       <description>Trump named Stephen Miller chief of staff, replacing Susie Wiles, and said the midterms were not the reason.</description>
       <enclosure url="https://pranksternews.com/stephen-miller.webp" length="40814" type="image/webp"/>
       <media:content url="https://pranksternews.com/stephen-miller.webp" medium="image" type="image/webp"/>
-    </item>
-    <item>
-      <title>Digital Price Tags: Efficiency Tool or Path to Personalized Pricing?</title>
-      <link>https://pranksternews.com/stories/tech-digital-price-tags</link>
-      <guid isPermaLink="true">https://pranksternews.com/stories/tech-digital-price-tags</guid>
-      <pubDate>Wed, 04 Nov 2026 15:24:00 -0500</pubDate>
-      <description>Walmart, Kroger, and other retailers are swapping paper shelf tags for digital price screens.</description>
-      <enclosure url="https://pranksternews.com/og.jpg" length="45443" type="image/jpeg"/>
-      <media:content url="https://pranksternews.com/og.jpg" medium="image" type="image/jpeg"/>
     </item>
   </channel>
 </rss>
