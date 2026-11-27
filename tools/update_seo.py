@@ -209,9 +209,9 @@ def is_raster_url(url: str) -> bool:
 def social_image_is_fallback(url: str | None) -> bool:
     """True when a social image cannot be the story's own preview.
 
-    Stories whose hero was an SVG used the site-wide og.jpg, because social
-    crawlers do not accept SVG. A JPEG, PNG, WebP, or GIF hero replaces that
-    fallback. Vector heroes, including the Gaza and Ukraine maps, stay on it.
+    Social crawlers do not accept SVG. A JPEG, PNG, WebP, or GIF hero replaces
+    the site-wide og.jpg. An SVG hero uses a sibling <name>-og.jpg when that
+    share image exists, and otherwise stays on og.jpg.
     """
     if not url:
         return True
@@ -219,6 +219,25 @@ def social_image_is_fallback(url: str | None) -> bool:
     if absolute == OG_IMAGE:
         return True
     return not is_raster_url(absolute)
+
+
+def site_relative(url: str) -> str:
+    path = html.unescape(url).split("?", 1)[0].split("#", 1)[0].strip()
+    while path.startswith("../"):
+        path = path[3:]
+    if path.startswith("./"):
+        path = path[2:]
+    return path.lstrip("/")
+
+
+def og_companion(hero: str) -> str | None:
+    """Share JPEG for an SVG hero: gaza-map.svg -> gaza-map-og.jpg."""
+    if url_suffix(hero) != ".svg":
+        return None
+    companion = Path(site_relative(hero)).with_name(Path(site_relative(hero)).stem + "-og.jpg")
+    if not (ROOT / companion).is_file():
+        return None
+    return companion.as_posix()
 
 
 def article_hero(document: str) -> str | None:
@@ -396,9 +415,12 @@ class Story:
         self.description = description
         og_image = get_meta(head, "property", "og:image")
         hero = article_hero(document)
-        # Prefer the article hero once it is a real image file. og.jpg is only
-        # the stand-in used while the hero was an SVG wrapper.
-        if hero and is_raster_url(hero) and social_image_is_fallback(og_image):
+        companion = og_companion(hero) if hero else None
+        # Prefer the article's own JPEG, or a -og.jpg rendered from an SVG hero.
+        # og.jpg is only the stand-in when neither exists.
+        if companion and social_image_is_fallback(og_image):
+            image = companion
+        elif hero and is_raster_url(hero) and social_image_is_fallback(og_image):
             image = hero
         elif og_image:
             image = og_image
